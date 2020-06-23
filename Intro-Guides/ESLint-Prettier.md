@@ -12,15 +12,20 @@ Feel free to skip Step 0 if you're otherwise confident in navigating your develo
 
 ## STEP 0: Getting Started
 
-[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) forms the basis of my guide. If you want short-and-sweet version, just give that a read first. [This one](https://scotch.io/tutorials/linting-and-formatting-with-eslint-in-vs-code) also might help and has lots of images. Additionally, [Sey's VS-Code write-up](https://github.com/seyitaintkim/VS-Code) covers a lot more ground than what I've written. My goal here is simply to make the ESLint / Prettier / VS Code install as straightforward as possible with a detailed walkthrough.
+**[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) forms the basis of my guide. If you want short-and-sweet version, just give that a read first.**
+
+[This one](https://scotch.io/tutorials/linting-and-formatting-with-eslint-in-vs-code) also might help and has lots of images. Additionally, [Sey's VS-Code write-up](https://github.com/seyitaintkim/VS-Code) covers a lot more ground than what I've written. My goal here is simply to make the ESLint / Prettier / VS Code install as straightforward as possible with a detailed walkthrough.
 
 **PREREQUISITES**
 
 - _Basic command line skills._ You can mostly copy-paste the commands in this guide, but knowing how to cd / ls / etc, as well as how to use _flags_ (like `< command > --help`) will help.
 - _VS Code basics._ I'm assuming that you're already using VS Code, and that you understand the basics of how to navigate around it. If not, read [Sey's guide](https://github.com/seyitaintkim/VS-Code) first.
 - _Have NPM installed._ If you're not sure if you have NPM, type `npm --version` into your terminal (and hit enter). If you see a number, you have NPM installed already. If not, follow [this link](https://www.npmjs.com/get-npm) to install Node & NPM. NPX (a similar tool) should automatically be installed alongside NPM. You can confirm this by running `npx -v` and looking for the version number.
+- _Terminology: Linter._ A linter is a program that can parse your source code to detect errors or styling inconsistencies. Linters are useful for making sure multiple developers can work on a project in a consistent code style with as few errors as possible. ESLint is a powerful linter with lots of built-in functionality and extensibility. Prettier is a more narrowly focused linter that can auto-fix many style errors.
 
-NPM is a package manager. It lets you install _modules_ (bits of code) that other people have written to work on your local machine (ie, your laptop / desktop / hotwired Motorola Razr / etc). Node modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder and it's subdirectories. The folder that contains all of your project files & subfolders is your _root_ folder; this is typically the folder where you'd run `git init` on a new project. The root folder is where we'll install all of our files for this setup. Additionally, NPM uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages.
+###### A few words on NPM:
+
+NPM is a package manager. It lets you install _modules_ (bits of code) that other people have written to work on your local machine (ie, your laptop / desktop / hotwired Motorola Razr / etc). Node modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders is sometimes called your _root_ folder, or the root of your project. The root folder is where we'll install all of our files for this setup. Additionally, NPM uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in json that tracks lots of information about your project, including info on the various helper modules you've installed. We don't need to work directly with `package.json` here, but it's helpful to know what it is.
 
 Many NPM packages have _dependencies_. These are other packages that they require in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. This will be the source of many ESLint&friends headaches. A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies.
 
@@ -28,7 +33,7 @@ Many NPM packages have _dependencies_. These are other packages that they requir
 
 First we need to install our core ESLint & Prettier packages. Start by navigating to whatever folder contains _all_ of the work you expect to complete during the immersive (or at least all non-project challenge work). I've set up my worksace along this path:  
 `~/Desktop/Coding/Codesmith/Immersive`  
-where `~` is my home folder (literally '/Users/connorrosedelisle'). ESLint & Prettier are installed in this **Immersive** folder.The **Immersive** folder then contains multiple sub-folders, or sub-directories, each of which is an assignment we've cloned. Because these assignment sub-directories are _inside_ the folder where I've installed ESLint and Prettier, the linter will still have access to them. You don't have to copy my exact directory path set-up, but just make sure you pick an install folder that can contain all your Codesmith projects. Remember that _every_ sub-directory will be following this ESLint&friends configuration, so don't pick a folder that contains outside projects that follow other (non-AirBnB) style guides.
+where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Prettier are installed in this **Immersive** folder. The **Immersive** folder then contains multiple sub-folders, or sub-directories, each of which is an assignment we've cloned. Because these assignment sub-directories are _inside_ the folder where I've installed ESLint and Prettier, the linter will still have access to them. You don't have to copy my exact directory path set-up, but just make sure you pick an install folder that can contain all your Codesmith projects. Remember that _every_ sub-directory will be following this ESLint&friends configuration, so don't pick a folder that contains outside projects that follow other (non-AirBnB) style guides.
 
 Once you've set up your install folder and navigated to it within the command line, you can complete your installs in the terminal with:  
 `npm install -D eslint prettier` | **WARNING:** This command _must_ be run while within the folder you've chosen. Use `pwd` to confirm your current directory if needed.  
@@ -82,7 +87,7 @@ This modifies two of the default Prettier rules to bring them in line with AirBn
 ## STEP 3: VS Code Integration
 
 If you're not already in VS Code, open it up now. Open up the Extensions pane and search for [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) by Esben Petersen. Click install.  
-Now find [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) by Dirk Baeumer and click install. You're almost done.
+Now find [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) by Dirk Baeumer and click install. You're almost done. The next and last step ensures that when you save a file, Prettier will automatically run and make stylistic changes to your code as needed.
 
 The very last step needed is to edit your VS Code settings. If you're not sure how to do this, review [Sey's guide](https://github.com/seyitaintkim/VS-Code) one more time. (Hint: CTRL+SHFT+P > "Open Settings") Once you're VS Code settings file, change `editor.formatOnSave` to `true`, and you're done! Give it a go, and see the **Notes** below for some trouble-shooting tips.
 
@@ -93,6 +98,8 @@ The very last step needed is to edit your VS Code settings. If you're not sure h
 TBD
 
 ## Notes
+
+**Reminder:** Prettier only fixes a narrow selection of style errors. It cannot fix most of the syntactical problems that ESLint catches. ESLint will still work for those additional errors, but you will need to review the warning squigglies manually to address anything Prettier couldn't fix on its own.
 
 **HTML / CSS:** If you have issues with auto-formatting or error messages on your non-Javascript code, try updating your VS Code Settings file with the following:
 
