@@ -1,6 +1,6 @@
 # ESLINT > AIRBNB > PRETTIER > VS CODE
 
-This guide will attempt to walk you through every step of setting up your linting tools for the Codesmith Immersive. I'm working exclusively on MacOS (10.15 Catalina), so your mileage vary on Linux and Windows. I have NOT tested the React portion of the configuration, but it so far does not interfere with any non-React work. Additionally, you may need to tweak the VS Code settings to avoid interfering with HTML / CSS files (dicussed in [Step 3](#Step3: VS Code Integration)).
+This guide will attempt to walk you through every step of setting up your linting tools for the Codesmith Immersive. I'm working exclusively on MacOS (10.15 Catalina), so your mileage vary on Linux and Windows. I have NOT tested the React portion of the configuration, but it so far does not interfere with any non-React work. Additionally, you may need to tweak the VS Code settings to avoid interfering with HTML / CSS files (dicussed in #Notes section below).
 Following these steps will:
 
 1. Install [ESLint](https://eslint.org/) to check your coding for errors.
