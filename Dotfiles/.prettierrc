@@ -1,34 +1,10 @@
 {
-	"env": {
-		"browser": true,
-		"es2020": true,
-		"node": true
-	},
-	"extends": [
-		"plugin:react/recommended",
-		"airbnb",
-		"prettier",
-		"prettier/react"
-	],
-	"plugins": [
-		"react",
-		"prettier"
-	],
-	"parserOptions": {
-		"ecmaVersion": 2020,
-		"sourceType": "module",
-		"ecmaFeatures": {
-			"jsx": true
-		}
-	},
-	"rules": {
-		"no-console": "off",
-		"func-style": ["error", "expression"],
-		"prettier/prettier": ["error"],
-		"quotes": [
-			"error",
-			"single",
-			{ "avoidEscape": true, "allowTemplateLiterals": false }
-		]
-	}
+	"printWidth": 100,
+	"tabWidth": 2,
+	"useTabs": false,
+	"semi": true,
+	"singleQuote": true,
+	"trailingComma": "all",
+	"bracketSpacing": true,
+	"arrowParens": "always"
 }
