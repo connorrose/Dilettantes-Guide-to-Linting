@@ -1,6 +1,6 @@
 # ESLINT > AIRBNB > PRETTIER > VS CODE
 
-This guide will attempt to walk you through every step of setting up your linting tools for the Codesmith Immersive. I'm working exclusively on MacOS (10.15 Catalina), so your mileage vary on Linux and Windows. I have NOT tested the React portion of the configuration, but it so far does not interfere with any non-React work. Additionally, you may need to tweak the VS Code settings to avoid interfering with HTML / CSS files (dicussed in [Step 3](#step3)).
+This guide will attempt to walk you through every step of setting up your linting tools for the Codesmith Immersive. I'm working exclusively on MacOS (10.15 Catalina), so your mileage vary on Linux and Windows. I have NOT tested the React portion of the configuration, but it so far does not interfere with any non-React work. Additionally, you may need to tweak the VS Code settings to avoid interfering with HTML / CSS files (dicussed in [Step 3](#Step3: VS Code Integration)).
 Following these steps will:
 
 1. Install [ESLint](https://eslint.org/) to check your coding for errors.
@@ -26,27 +26,27 @@ Many NPM packages have _dependencies_. These are other packages that they requir
 
 ## STEP 1: Install ESLint + Prettier
 
-First we need to install our core ESLint & Prettier packages. Start by navigating to whatever folder contains _all_ of the work you expect to complete during the immersive (or at least all non-project challenge work). I've set up my worksace along this path:
-`~/Desktop/Coding/Codesmith/Immersive`
+First we need to install our core ESLint & Prettier packages. Start by navigating to whatever folder contains _all_ of the work you expect to complete during the immersive (or at least all non-project challenge work). I've set up my worksace along this path:  
+`~/Desktop/Coding/Codesmith/Immersive`  
 where `~` is my home folder (literally '/Users/connorrosedelisle'). ESLint & Prettier are installed in this **Immersive** folder.The **Immersive** folder then contains multiple sub-folders, or sub-directories, each of which is an assignment we've cloned. Because these assignment sub-directories are _inside_ the folder where I've installed ESLint and Prettier, the linter will still have access to them. You don't have to copy my exact directory path set-up, but just make sure you pick an install folder that can contain all your Codesmith projects. Remember that _every_ sub-directory will be following this ESLint&friends configuration, so don't pick a folder that contains outside projects that follow other (non-AirBnB) style guides.
 
-Once you've set up your install folder and navigated to it within the command line, you can complete your installs in the terminal with:
-`npm install -D eslint prettier` | **WARNING:** This command _must_ be run while within the folder you've chosen. Use `pwd` to confirm your current directory if needed.
+Once you've set up your install folder and navigated to it within the command line, you can complete your installs in the terminal with:  
+`npm install -D eslint prettier` | **WARNING:** This command _must_ be run while within the folder you've chosen. Use `pwd` to confirm your current directory if needed.  
 Sidenote: the `-D` is short for `--save-dev`, or "save these packages as a dev-dependency."
 
 Next, without changing folders, install the AirBnB configuration for ESLint:
 `npx install-peerdeps --dev eslint-config-airbnb`
 
-Lastly, install two more packages that integrate Prettier into ESLint:
-`npm install -D eslint-config-prettier eslint-plugin-prettier`
+Lastly, install two more packages that integrate Prettier into ESLint:  
+`npm install -D eslint-config-prettier eslint-plugin-prettier`  
 `eslint-config-prettier` will disable the ESLint rules now being handled by Prettier, and `eslint-plugin-prettier` "allows ESLint to show formatting errors as we type."
 
 _Important note:_ Prettier can only handle a small subset of the rules that ESLint checks for. ESLint alone can detect everything detecable from the AirBnB style guide, but it provides very few _automatic_ fixes. Prettier does not detect any new errors; instead it adds powerful _automatic error fixing_ on top of ESLint (for a select set of errors). Using ESLint alone is enough to ensure your code style is correct, but adding Prettier on top will drastically speed up the time it takes to get there.
 
 ## STEP 2: Configure Dotfiles
 
-_Dotfiles_ are hidden files used to set the configuration for many different types of programs, including Bash, Zsh, Vim, VS Code, ESLint and Prettier. Examples of my current dotfiles can be found [here](../Dotfiles). They're called dotfiles because the file names start with a `.` that renders them hidden from normal file viewers. To view hidden files within the terminal, you can use:
-`ls -a -l`
+_Dotfiles_ are hidden files used to set the configuration for many different types of programs, including Bash, Zsh, Vim, VS Code, ESLint and Prettier. Examples of my current dotfiles can be found [here](../Dotfiles). They're called dotfiles because the file names start with a `.` that renders them hidden from normal file viewers. To view hidden files within the terminal, you can use:  
+`ls -a -l`  
 where `-a` shows hidden files and `-l` displays the results as a list. For today, we're concerned with two specific dotfiles:
 
 `.eslintrc.json` for ESLint
@@ -81,14 +81,14 @@ This modifies two of the default Prettier rules to bring them in line with AirBn
 
 ## STEP 3: VS Code Integration
 
-If you're not already in VS Code, open it up now. Open up the Extensions pane and search for [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) by Esben Petersen. Click install.
+If you're not already in VS Code, open it up now. Open up the Extensions pane and search for [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) by Esben Petersen. Click install.  
 Now find [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) by Dirk Baeumer and click install. You're almost done.
 
-The very last step needed is to edit your VS Code settings. If you're not sure how to do this, review [Sey's guide](https://github.com/seyitaintkim/VS-Code) one more time. (Hint: <ctrl>+<shft>+<p> > "Open Settings") Once you're VS Code settings file, change `editor.formatOnSave` to `true`, and you're done! Give it a go, and see the **Notes** below for some trouble-shooting tips.
+The very last step needed is to edit your VS Code settings. If you're not sure how to do this, review [Sey's guide](https://github.com/seyitaintkim/VS-Code) one more time. (Hint: CTRL+SHFT+P > "Open Settings") Once you're VS Code settings file, change `editor.formatOnSave` to `true`, and you're done! Give it a go, and see the **Notes** below for some trouble-shooting tips.
 
 [If you're using the JSON Settings editor and not the GUI, just past `"editor.formatOnSave": true` on a new line.]
 
-## STEP 4 (Optional): More Dotfiles
+## STEP 4 (Optional): More Dotfile Configuration
 
 TBD
 
@@ -102,7 +102,7 @@ TBD
 }
 ```
 
-You can also try adding `editor.defaultFormatter": "esbenp.prettier-vscode"` if Prettier does _not_ appear to be working yet.
+You can also try adding `"editor.defaultFormatter": "esbenp.prettier-vscode"` if Prettier does _not_ appear to be working yet.
 
 **Checking if your install worked:** Prettier will not format a new file on the first save. Additionally, Prettier will only format a file in VS Code if it has been modified in some way since the last save. This means that to test the auto-formatting, you may need to:
 
