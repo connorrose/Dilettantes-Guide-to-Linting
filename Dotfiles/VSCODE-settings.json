@@ -1,0 +1,76 @@
+{
+  /**
+   * This is the JSON file VSCode uses to overwrite default settings.
+   * It should be edited directly in VSCODE by searching for OPEN SETTINGS in the Command Palette.
+   * You can copy-paste it directly if you'd like, but it's probably better to just enable
+   * on a line-by-line basis, as your preferences and working environment is
+   * likely different than mine. Also, cannot include comments in an actual JSON file.
+   * The comments I've added here are just an explainer for easier sharing.
+   */
+
+  // EDITOR
+  "editor.lineNumbers": "relative", // This one is Vim-related, cont'd below
+  // Sets gutter line numbers to absolute for current line, and relative for lines
+  // on either side. Easier to enter vim commands like "jump 12 lines up <12j>"
+  "editor.detectIndentation": false, // Lets tab key auto-insert spaces on EVERY file
+  "editor.tabSize": 2, // Sets tab auto-insert to two spaces
+  "editor.fontFamily": "FiraCode-Retina", // See below link for download instructions
+  // https://github.com/tonsky/FiraCode/wiki/Installing
+  "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss05', 'ss06', 'ss08'", // My preferred set of fontLigatures with Fira Code
+  "editor.fontSize": 13, // My preferred default font size
+  "editor.minimap.enabled": false, // No map on right sidebar
+  "editor.cursorSurroundingLines": 4, // If scrolling at bottom of page, always show at least 4 lines below cursor
+  "editor.cursorBlinking": "smooth", // Vim makes my cursor a block, so this smooths the blinking
+  "editor.snippetSuggestions": "inline", // added on Sey's advice
+  "editor.formatOnSave": true, // IMPORTANT PRETTIER CONFIG STEP
+  "editor.defaultFormatter": "esbenp.prettier-vscode", // Sets Prettier as my default Formatter for everything
+
+  // EXPLORER
+  "explorer.sortOrder": "type", // Orders Explorer pane to display folder first, then group files by type
+
+  // SOURCE CODE MANAGEMENT
+  "scm.diffDecorations": "gutter", // only show Git Diff highlights in the gutter
+  "scm.diffDecorationsGutterVisibility": "hover", // only show those highlights when I hover in the gutter
+  "scm.diffDecorationsGutterWidth": 5, // make the highlights wider for visibility
+
+  // WORKBENCH
+  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme! Works fine without paying
+  // https://monokai.pro/vscode (ignore the bit about purchasing a license)
+  "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // Uses themed icons as well
+  "workbench.settings.useSplitJSON": true, // always show defaults file when editing settings.JSON
+  "workbench.editor.highlightModifiedTabs": true, // not very useful honestly
+  "workbench.colorCustomizations": {
+    // I think I'm overriding all this with my Vim config?
+    "statusBar.background": "#8FBCBB",
+    "statusBar.noFolderBackground": "#8FBCBB",
+    "statusBar.debuggingBackground": "#8FBCBB",
+    "statusBar.foreground": "#434C5E"
+  },
+
+  // ----- EXTENSION CONFIGURATIONS -----
+  // See individual extension pages in Marketplace for full config options
+
+  // ESLint
+  "eslint.alwaysShowStatus": true, // all squiggly, all the time
+  "eslint.codeActionsOnSave.mode": "problems", // might be Prettier related?
+  "eslint.format.enable": true, // almost definitley Prettier related
+
+  // Vim
+  "vim.statusBarColorControl": true, // All my vim configs are mode colors for the status bar
+  "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+  "vim.statusBarColors.insert": "#FAAAE5",
+  "vim.statusBarColors.visual": "#9DFB8E",
+  "vim.statusBarColors.visualline": "#B48EAD",
+  "vim.statusBarColors.visualblock": "#A3BE8C",
+  "vim.statusBarColors.replace": "#D08770",
+  "vim.statusBarColors.commandlineinprogress": ["#FF9063", "#050040"],
+  "vim.statusBarColors.searchinprogressmode": ["#050040", "#FF9063"],
+  "vim.statusBarColors.easymotionmode": "#007ACC",
+  "vim.statusBarColors.easymotioninputmode": "#007ACC",
+  "vim.statusBarColors.surroundinputmode": "#007ACC",
+
+  // Bracket Pair Colorizer 2
+  "bracket-pair-colorizer-2.colors": ["steelblue"] // Array sets alternating colors for nested brackets.
+  // You can include from 1 to many colors. Multi-color brackets are hard for me to read, so I set all brackets to one color.
+  // I use the extension only to highlight the vertical connecting bars between pairs.
+}
