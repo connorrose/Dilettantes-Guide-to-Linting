@@ -34,7 +34,7 @@ where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Pre
 
 You don't have to copy my exact directory path set-up; just make sure you pick an install folder that can contain all of the projects you want linted and fixed (with the same AirBnB style rules). Remember that _every_ sub-directory will be following this configuration, so don't pick a folder that contains outside projects that follow their style guides. Once you've decided on a folder for installation, you should navigate to that folder within your terminal and move on to the next step.
 
-## STEP 2: Install ESLint
+## STEP 1: Install ESLint
 
 Before we get started, we will create a **`package.json`** file to keep track of what we've installed. First, make sure you're on the command line (ie, in Terminal) within the folder you've chosen (_hint:_ `pwd`). To create **`package.json`** using the default values, we will _initialize via npm_:
 
@@ -52,7 +52,7 @@ Once we've initialized our folder, we can install the core ESLint package:
 
 ###### (You can safely ignore any `npm WARN` messages about missing descriptions or fields.)
 <details open>
-<summary>technical aside<summary>
+<summary>technical aside</summary>
 <br>
 The `--save-dev` flag will register the package we just installed as a _Development Dependency_ within **`package.json`**. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us _write_ our code, but they do not contribute any functionality to the code we deploy to users.
 </details>
@@ -98,7 +98,7 @@ Now, open up **`.eslintrc.json`** in VS Code or another file editor, and copy in
 
 **YAY!!** We've finished installing and configuring ESLint. One more step before we have our awesome new linting abilities enabled in VS Code.
 
-## STEP 3: VS Code Integration
+## STEP 2: VS Code Integration
 
 // PENDING UPDATE //
 
@@ -109,11 +109,11 @@ The very last step needed is to edit your VS Code settings. If you're not sure h
 
 [If you're using the JSON Settings editor and not the GUI, just past `"editor.formatOnSave": true` on a new line.]
 
-## STEP 4: Install Prettier & Plugins
+## STEP 3: Install Prettier & Plugins
 
 // PENDING UPDATE //
 
-## STEP 5: More Configuration Options
+## STEP 4: More Configuration Options
 
 // PENDING UPDATE//
 
@@ -157,8 +157,8 @@ Prettier only fixes a narrow selection of style errors. It cannot fix most of th
 **Files other any _xyz.js_**  
 If you experience issues with auto-formatting or error messages on your non-Javascript code, try moving the VS Code `"editor.codeActionsOnSave"` setting from earlier into the `"[javascrip]": {}` setting selector we created.
 
-**A few words on npm:**  
-npm is a package manager. It lets you install _modules_ (bits of code) that other people have written to work on your local machine (ie, your laptop / desktop / hotwired Motorola Razr / etc). Node modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders is sometimes called your _root_ folder, or the root of your project. The root folder is where we'll install all of our files for this setup. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in json that tracks lots of information about your project, including info on the various helper modules you've installed. We don't need to work directly with `package.json` here, but it's helpful to know what it is.
+**A few words on npm**  
+**_npm_** is a package manager. It lets you install _modules_ (bits of code) that other people have written to work on your local machine (ie, your laptop / desktop / hotwired Motorola Razr / etc). Node modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders is sometimes called your _root_ folder, or the root of your project. The root folder is where we'll install all of our files for this setup. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in json that tracks lots of information about your project, including info on the various helper modules you've installed. We don't need to work directly with `package.json` here, but it's helpful to know what it is.
 
 Many npm packages have _dependencies_. These are other packages that they require in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. This will be the source of many ESLint&friends headaches. A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies.
 
@@ -177,7 +177,7 @@ Your ESLint highlighting should appear immediately on any files within your inst
 1. Edit the file in some way. You can paste in the test case provided below if you'd like. You should see errors being highlighted by ESLint.
 1. Save the file again. At this point, many of the style errors (including line-length) should auto-fix.
 
-Feel free to use this code example to check for a few types of fixable errors, but remember to edit it at least once after the initial save!
+Feel free to use this code example to check for a few types of fixable errors, but remember to edit it at least once if included in the initial save!
 
 ```
 const testFunc = function funcName (longArgNumberOne, longArgNumberTwo, longArgNumberFour, longArgNumberFive) {
