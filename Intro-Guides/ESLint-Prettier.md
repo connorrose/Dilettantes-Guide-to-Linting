@@ -51,7 +51,7 @@ Once we've initialized our folder, we can install the core ESLint package:
 `npm install eslint --save-dev`
 
 ###### (You can safely ignore any `npm WARN` messages about missing descriptions or fields.)
-<details open>
+<details>
 <summary>technical aside</summary>
 <br>
 The `--save-dev` flag will register the package we just installed as a _Development Dependency_ within **`package.json`**. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us _write_ our code, but they do not contribute any functionality to the code we deploy to users.
