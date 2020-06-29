@@ -4,9 +4,9 @@ This guide will attempt to walk you through every step of setting up a linting w
 Following these steps will:
 
 1. Install [ESLint](https://eslint.org/) locally to check your code for style and structural errors.
-2. Set the [AirBnB Style Guide](https://github.com/airbnb/javascript) as your default ruleset.
-3. Install either [Prettier](https://prettier.io/) or [this fork](https://github.com/btmills/prettier) of Prettier to auto-format common styling mistakes whenever you save a Javascript file.
-4. Integrate ESLint and Prettier into VS Code so that all formatting work can be done live within the editor.
+1. Set the [AirBnB Style Guide](https://github.com/airbnb/javascript) as your default ruleset.
+1. Install either [Prettier](https://prettier.io/) or [this fork](https://github.com/btmills/prettier) of Prettier to auto-format common styling mistakes whenever you save a Javascript file.
+1. Integrate ESLint and Prettier into VS Code so that all formatting work can be done live within the editor.
 
 If I've made any mistakes, as I'm sure I have, please feel free to submit a pull request or raise an issue. If you follow everything listed in here and it still won't work (and you're on Mac), just get in touch and I'll do my best to help you troubleshoot.
 
@@ -41,9 +41,9 @@ Before we get started, we will create a **`package.json`** file to keep track of
 `npm init --yes`
 
 This does a few things:
-  0. Initializes our current folder as an _npm package_. This isn't really relevant to our current goals, but with a few tweaks we would technically be able to register our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/).
-  0. Creates a **`package.json`** file in the current directory. As discussed, this file will now keep track of many of the additional packages we'll be installing.
-  0. Set some default values within **`package.json`**, including a name, version number, and license. Since we don't plan to publish our folder on npm, we won't worry about any of these values. However, you can look through [the docs](https://docs.npmjs.com/files/package.json) for more information.
+1. Initializes our current folder as an _npm package_. This isn't really relevant to our current goals, but with a few tweaks we would technically be able to register our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/).
+1. Creates a **`package.json`** file in the current directory. As discussed, this file will now keep track of many of the additional packages we'll be installing.
+1. Set some default values within **`package.json`**, including a name, version number, and license. Since we don't plan to publish our folder on npm, we won't worry about any of these values. However, you can look through [the docs](https://docs.npmjs.com/files/package.json) for more information.
 
 
 Once we've initialized our folder, we can install the core ESLint package:
@@ -52,17 +52,17 @@ Once we've initialized our folder, we can install the core ESLint package:
 
 ###### (You can safely ignore any `npm WARN` messages about missing descriptions or fields.)
 <details open>
-<summary>_Technical Aside_:<summary>
+<summary>technical aside<summary>
 <br>
 The `--save-dev` flag will register the package we just installed as a _Development Dependency_ within **`package.json`**. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us _write_ our code, but they do not contribute any functionality to the code we deploy to users.
 </details>
 
 This will:
-  0. Create a folder called **`node_modules`** where all the packages we install will be stored.
-  0. Install ESLint within **`node_modules`**.
-  0. Register ESLint as a `dev-dependency` in **`package.json`**.
-  0. Install all the other packages that ESLint depends on, as shown in **`npm`**'s terminal output.
-  0. Create a **`package-lock.json`** file in the current directory. This file will automatically keep track of the version information of the packages we install, as well as the required version numbers for any of their dependencies.
+1. Create a folder called **`node_modules`** where all the packages we install will be stored.
+1. Install ESLint within **`node_modules`**.
+1. Register ESLint as a `dev-dependency` in **`package.json`**.
+1. Install all the other packages that ESLint depends on, as shown in **`npm`**'s terminal output.
+1. Create a **`package-lock.json`** file in the current directory. This file will automatically keep track of the version information of the packages we install, as well as the required version numbers for any of their dependencies.
 
 Next, without changing folders, install the AirBnB configuration for ESLint:
 
@@ -93,7 +93,7 @@ Now, open up **`.eslintrc.json`** in VS Code or another file editor, and copy in
 }
 ```
 `env: ` sets the environments in which we expect to run our code. We've enabled support for browsers, Node.js, and the most recent Javascript language standards and features.  
-`extends: ` is where we set the AirBnB ruleset we installed with `eslint-config-airbnb`.
+`extends: ` is where we set the AirBnB ruleset we installed with `eslint-config-airbnb`.  
 `parserOptions: ` sets the [ECMA language spec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources) for the parser to the most recent 2020 edition, and it sets our cross-file code-sharing to use [_module_ syntax](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac).
 
 **YAY!!** We've finished installing and configuring ESLint. One more step before we have our awesome new linting abilities enabled in VS Code.
@@ -151,28 +151,31 @@ This modifies two of the default Prettier rules to bring them in line with AirBn
 
 ## NOTES
 
-**Reminder:** Prettier only fixes a narrow selection of style errors. It cannot fix most of the structural problems that ESLint catches. ESLint will still flag those additional errors, but you will need to manually review the warning-squigglies to address anything Prettier couldn't fix automatically.
+**Reminder**  
+Prettier only fixes a narrow selection of style errors. It cannot fix most of the structural problems that ESLint catches. ESLint will still flag those additional errors, but you will need to manually review the warning-squigglies to address anything Prettier couldn't fix automatically.
 
-**Files other any _xyz.js_:** If you experience issues with auto-formatting or error messages on your non-Javascript code, try moving the VS Code `"editor.codeActionsOnSave"` setting from earlier into the `"[javascrip]": {}` setting selector we created.
+**Files other any _xyz.js_**  
+If you experience issues with auto-formatting or error messages on your non-Javascript code, try moving the VS Code `"editor.codeActionsOnSave"` setting from earlier into the `"[javascrip]": {}` setting selector we created.
 
-**A few words on npm:**
+**A few words on npm:**  
 npm is a package manager. It lets you install _modules_ (bits of code) that other people have written to work on your local machine (ie, your laptop / desktop / hotwired Motorola Razr / etc). Node modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders is sometimes called your _root_ folder, or the root of your project. The root folder is where we'll install all of our files for this setup. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in json that tracks lots of information about your project, including info on the various helper modules you've installed. We don't need to work directly with `package.json` here, but it's helpful to know what it is.
 
 Many npm packages have _dependencies_. These are other packages that they require in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. This will be the source of many ESLint&friends headaches. A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies.
 
-**What the heck are dotfiles?!** 
+**What the heck are dotfiles?!**  
 _Dotfiles_ are hidden files used to set the configuration for many different types of programs, including Bash, Zsh, Vim, VS Code, ESLint and Prettier. Examples of my current dotfiles can be found [here](../Dotfiles). They're called dotfiles because the file names start with a `.` that renders them hidden from normal file viewers. To view hidden files within the terminal, you can use:
 
 `ls -a -l`
 
 where `-a` shows hidden files and `-l` displays the results as a list. 
 
-**Checking if your install worked:** Your ESLint highlighting should appear immediately on any files within your install directory and its sub-directories. However, if error-highlighting or fixOnSave don't appear to be working, try the steps below before any additional troubleshooting:
+**Checking if your install worked**  
+Your ESLint highlighting should appear immediately on any files within your install directory and its sub-directories. However, if error-highlighting or fixOnSave don't appear to be working, try the steps below before any additional troubleshooting:
 
-0. Create a new file in your installation directory (or its sub-directories).
-0. Save that file once, preferably with at least a one line comment as content.
-0. Edit the file in some way. You can paste in the test case provided below if you'd like. You should see errors being highlighted by ESLint.
-0. Save the file again. At this point, many of the style errors (including line-length) should auto-fix.
+1. Create a new file in your installation directory (or its sub-directories).
+1. Save that file once, preferably with at least a one line comment as content.
+1. Edit the file in some way. You can paste in the test case provided below if you'd like. You should see errors being highlighted by ESLint.
+1. Save the file again. At this point, many of the style errors (including line-length) should auto-fix.
 
 Feel free to use this code example to check for a few types of fixable errors, but remember to edit it at least once after the initial save!
 
