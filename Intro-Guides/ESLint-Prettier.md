@@ -1,80 +1,88 @@
 # ESLINT > AIRBNB > PRETTIER > VS CODE
 
-This guide will attempt to walk you through every step of setting up a linting workflow for your Javascript files. I'm working exclusively on MacOS (10.15 Catalina), so your mileage vary on Linux and Windows. The focus is on vanilla browser-based Javascript, but we'll include incidental coverage for some [React](#react) and jQuery syntax along the way. Following these steps will:
+This guide is a step-by-step walkthrough for setting up a Javascript (or _JS_) linting workflow. I work exclusively on MacOS (10.15 Catalina), so your mileage may vary on Linux and Windows. The focus is on vanilla, browser-based Javascript, but it includes some coverage for [React](#react) and jQuery as well.  
+**The goal:**
 
-1. Install [ESLint](https://eslint.org/) locally to check your code for style and structural errors.
-1. Set the [AirBnB Style Guide](https://github.com/airbnb/javascript) as your default ruleset.
-1. Install either [Prettier](https://prettier.io/docs/en/index.html) or [this fork](https://github.com/btmills/prettier) of Prettier to auto-format common styling mistakes whenever you save a Javascript file.
-1. Integrate ESLint and Prettier into VS Code so that all formatting work can be done live within the editor.
+1. Install [ESLint](https://eslint.org/) locally, which will check our code for style and structural errors.
+1. Set the [AirBnB Style Guide](https://github.com/airbnb/javascript) as our default ruleset.
+1. Install either [Prettier](https://prettier.io/) or [this fork](https://github.com/btmills/prettier) of Prettier to enable powerful auto-formatting whenever we save a JS file.
+1. Integrate ESLint and Prettier into VS Code so that all formatting work can be handled directly within the editor.
 
 If I've made any mistakes, as I'm sure I have, please feel free to [submit a pull request](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/) or [raise an issue](https://docs.github.com/en/enterprise/2.15/user/articles/creating-an-issue). If you follow everything listed in here and it still won't work (and you're on Mac), just get in touch and I'll do my best to help you troubleshoot.
 
 ## GETTING STARTED
 
-**[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) was the original inspiration for this guide.** After spending time in VS Code with that setup, I've made some changes to stay closer to [AirBnB's style guide docs](https://github.com/airbnb/javascript) while adding context and simplifying configuration slightly. If you just want a list of my install commands without the explanation, see the **[TLDR version](./TLDR-eslint.md)**. 
+**[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) was my original inspiration.** After spending time in VS Code with that setup, I've made some changes to stay closer to [AirBnB's style guide docs](https://github.com/airbnb/javascript) while adding additional context. If you just want a list of the install commands without any explanation, see the **[TLDR version](./TLDR-eslint.md)**. In this guide, **terminal commands will always be on their own line, pre-fixed with a $ sign.** Don't include the **$** when typing the command in the terminal; it's used here only to indicate _this is a terminal command you should enter_.
 
-This guide is specifically focused on using ESLint & Prettier within VS Code, rather than directly through the [ESLint CLI](https://eslint.org/docs/user-guide/command-line-interface). If you're not yet comfortable using VS Code as your primary editor, [@seyitaintkim's VS-Code write-up](https://github.com/seyitaintkim/VS-Code) covers a lot more ground than what I've written here. Again, my goal is simply to make the ESLint / Prettier / VS Code install as straightforward as possible with a detailed walkthrough.
+This guide focuses exclusively on using ESLint & Prettier within VS Code, rather than _via_ the [ESLint CLI](https://eslint.org/docs/user-guide/command-line-interface). If you're not yet comfortable using VS Code, [@seyitaintkim's VS Code write-up](https://github.com/seyitaintkim/VS-Code) is a good primer; check that out before continuing here. You can stop at a few different points, depending on how sophisicated you want your set-up to be:
+- **Step 0 to 2** will give you a working ESLint set-up within VS Code.
+- Continuing to **Step 3** will add additional auto-formatting _via_ Prettier.
+- Finally, **Step 4** provides additional configuration options for tailoring ESLint to your particular needs and preferences.
 
 **PREREQUISITES**
 
-- **Basic command line skills:** You can mostly copy-paste the commands in this guide, but knowing how to `cd / ls / etc`, as well as how to use _flags_ (like `<command> --help`) will help. See [this guide](./Command-Line.md) for more info.
+- **Basic command line skills:** You can mostly copy-paste the commands in this guide, but knowing how to `cd / ls / etc`, as well as understanding _flags_ (like `<command> --help`), will be a plus. See [this guide](./Command-Line.md) for more info.
 - **VS Code basics:** I'm assuming that you're already using VS Code, and that you understand the basics of how to navigate around it. If not, read [Sey's guide](https://github.com/seyitaintkim/VS-Code) first.
-- **_npm_ already installed:** If you're not sure if you have npm, type `npm --version` into your terminal (and hit enter). If you see a number, you have npm installed already. If not, follow [this link](https://www.npmjs.com/get-npm) to install Node & npm. __**npx**__ ([a similar tool](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)) should be installed automatically alongside npm. You can confirm this by running `npx -v` and looking for the version number. If you'd like a little background on what exactly npm _is_, see the [notes](#a-few-words-on-npm) below.
-- **Terminology => Linter:** A linter is a program that can parse your source code to detect errors or styling inconsistencies. Linters are useful for making sure multiple developers can work on a project in a consistent code style with as few errors as possible. ESLint is a powerful linter with lots of built-in functionality and extensibility. Prettier is a more narrowly focused _code formatter_ that can auto-fix many style errors. It works by taking an [AST representation](https://blog.buildo.io/a-tour-of-abstract-syntax-trees-906c0574a067) of your code and re-printing it according to predefined & opinionated style rules. (For a bit more info on Prettier's design principles & under-the-hood implementation, see [this blog post](https://jlongster.com/A-Prettier-Formatter)).
+- **_npm_ installed & up-to-date:** If you're not sure if you have npm installed, type `npm --version` into your terminal and hit enter. If you see a number, it's already installed. If not, follow [this link](https://www.npmjs.com/get-npm) to install Node & npm. ([A similar tool](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)) called **_npx_** should be installed automatically with npm. To confirm, enter `npx -v` and look for the version number. If you'd like a little background on what exactly npm _is_, see the [notes](#a-few-words-on-npm) below.
+- **Terminology - _Linter_:** A _linter_ is a program that parses your source code to detect syntax errors or styling inconsistencies. Linters are useful for making sure multiple developers can work on a shared project in a consistent code style with as few errors as possible. ESLint is a powerful configurable linter. Prettier, by contrast, is a narrowly-focused _code formatter_ that auto-fixes many style issues. It works by taking an [AST representation](https://blog.buildo.io/a-tour-of-abstract-syntax-trees-906c0574a067) of your code and re-printing it according to predefined & opinionated style rules. (For a bit more info on Prettier's design principles & under-the-hood implementation, see [this blog post](https://jlongster.com/A-Prettier-Formatter)).
 
 ## STEP 0: Picking a folder
 
-All of the installation commands below should be entered while in a single folder in your terminal. Whatever folder you pick for this installation will then contain your installed packages and configuration files. ESLint will be available to other files within that folder, as well as to files within any sub-folders.
+All of the commands below should be executred while in a single folder in your terminal, unless otherwise indicated. Whatever folder you pick for this installation will then contain your installed packages and configuration files. ESLint will be available to other files within that folder, as well as to files within any sub-folders.
 For example, I've set up my _Software Immersive_ workspace along this path:
 
 `~/Desktop/Coding/Course-Name/Immersive`
 
-where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Prettier are installed in this **`Immersive`** folder. The **`Immersive`** folder, or _directory_, then contains multiple sub-folders, or _sub-directories_, each of which is an assignment or project I've cloned from GitHub. Because these assignment sub-directories are _inside_ the folder where I installed ESLint and Prettier, the linter will still have access to them. The cloned projects are each tracked as their own separate git repositories, while the **`Immersive`** folder itself is **_not_** tracked via [git](./Git-Github.md) / version control.
+where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Prettier are installed in this **`Immersive`** folder. The **`Immersive`** folder, or _directory_, then contains multiple sub-folders, or _sub-directories_, each of which is an assignment or project I've cloned from GitHub. Since these assignment sub-folders are _inside_ the folder where I installed ESLint and Prettier, the linter will still have access to them. The cloned projects are each tracked as their own separate git repositories, while the **`Immersive`** folder itself is **_not_** tracked via [git](./Git-Github.md) / version control.
 
-You don't have to copy my exact directory path set-up; just make sure you pick an install folder that can contain all of the projects you want linted and fixed (with the same AirBnB style rules). Remember that _every_ sub-directory will be following this configuration, so don't pick a folder that contains outside projects already following their own style guides. Once you've decided on a folder for installation, you should navigate to that folder within your terminal and move on to the next step.
+You don't have to copy my exact directory path set-up; just make sure you pick an install folder that can contain all of the projects you want linted and fixed with the same AirBnB style rules. Remember that _every_ sub-folder will be following this configuration, so don't pick a folder that contains outside projects already following their own style guides. Once you've chosen a folder for installation, you should navigate to that folder within your terminal and move on to the next step.
 
-## STEP 1: Install ESLint 
+## STEP 1: ESLint 
 
-Before we get started, we'll create a **`package.json`** file to keep track of what we've installed. First, make sure you're in your terminal within the folder you've chosen (_hint:_ `pwd`). To create **`package.json`** using automatic default values, we will _initialize via npm_:
+### Initializing with npm
+Before we get started, let's create a **`package.json`** file to keep track of what we've installed. You should already be in your terminal within the folder you've chosen (_hint:_ `pwd`). To create **`package.json`** with default values, let's _initialize via npm_:
 
-`npm init --yes`
+**$** `npm init --yes`
 
-This do will do a few things:
-1. Initialize our current folder as an _npm package_. This isn't relevant to our current task, but with a few tweaks we could technically register our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/). To over-simplify, npm packages are just directories containing code files and a completed **`package.json`**. Which brings us to:
-1. Create a **`package.json`** file in the current directory. As discussed, this file will now keep track of many of the additional packages we'll be installing.
-1. Set some default values within **`package.json`** including a _name_, _version number_, and _license_. Since we don't plan to directly publish our folder on npm, we won't worry about any of these values. However, you can look through [the docs](https://docs.npmjs.com/files/package.json) for more information.
+This will:
+1. **Initialize our current folder as an _npm package_.** To over-simplify, npm packages are just folders containing code files and a completed **`package.json`**. It isn't relevant to us, but with a few tweaks we could technically register our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/). Which brings us to:
+1. **Create a **`package.json`** file in the current directory.** This file keeps track of the packages we'll be installing.
+1. **Set some default values within **`package.json`**** including a _name_, _version number_, and _license_. Since we're not publishing our folder on npm, we won't worry about any of these values. However, you can look through [the docs](https://docs.npmjs.com/files/package.json) for more information.
 <br>
 
-Once we've initialized our folder, we can install the core ESLint package:
+### Installing ESLint
+Next, to install the core ESLint package:
 
-`npm install eslint --save-dev`
+**&** `npm install eslint --save-dev`
 
 ###### (You can safely ignore any `npm WARN` messages about missing descriptions or fields.)
 
 This will:
 1. Create a folder called **`node_modules`**, inside which all our packages will be installed.
 1. Install the ESLint package within **`node_modules`**.
-1. Register ESLint as a `dev-dependency` in **`package.json`**.
-1. Install all the other packages ESLint depends on, as shown in **`npm`**'s terminal output.
-1. Create a **`package-lock.json`** file in the current directory. This file will automatically keep track of the version information of the packages we install, as well as the required version numbers for any of their dependencies.
+1. Register ESLint as a _dev-dependency_ in **`package.json`**.
+1. Install all the other packages ESLint depends on, as shown in npm's terminal output.
+1. Create a **`package-lock.json`** file in the current directory. This file automatically keeps track of the version infor of packages we install, as well as the required version numbers for any of their _dependencies_.
 
 <details>
 <summary><i>Technical Aside</i></summary>
-The <code>--save-dev</code> flag will register the package we just installed as a <i>Development Dependency</i> within <code>package.json</code>. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us <i>write</i> our code, but they do not contribute any functionality to the code we deploy to users.
+The <code>--save-dev</code> flag registers the package we just installed as a <i>development dependency</i> within <code><b>package.json</b></code>. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us <i>write</i> our code, but they do not contribute any functionality to the code we deploy to users.
 </details>
 <br>
 
-Next, without changing folders, install the AirBnB configuration for ESLint:
+### Installing AirBnB
+Without changing folders, install the AirBnB configuration for ESLint:
 
-`npx install-peerdeps --dev eslint-config-airbnb`
+**$** `npx install-peerdeps --dev eslint-config-airbnb`
 
-This package adds AirBnB's style guide as a ruleset within ESLint. However, this ruleset is not enabled automatically. To force ESLint to follow the AirBnB rules, we need to set up our ESLint configuration file. To start, create a new file - in the same folder we've been working in - called **`.eslintrc.json`**:
+The `eslint-config-airbnb` package adds AirBnB's style guide as a ruleset within ESLint. However, these rules are not enabled automatically. First we need to set up our ESLint configuration file. Create a new file, in the same folder we've been working in, called **`.eslintrc.json`**:
 
-`touch .eslintrc.json`
+**$** `touch .eslintrc.json`
 
-The leading dot in front of the filename is very important! (Read more on _dotfiles_ in the [notes](#what-the-heck-are-dotfiles).) This file will be in the **JSON** format, which lets us store our ESLint settings as properties on a Javascript object. Using a standardized file format like JSON allows many different programs, including VS Code, to interact with our settings configuration. The ESLint _config_ file can also be written in Javascript or [YAML](https://rollout.io/blog/yaml-tutorial-everything-you-need-get-started/), but JSON is the simplest for our purposes.
+The **leading dot** in front of the filename is _very important_! You can read more on _dotfiles_ in the [notes](#what-the-heck-are-dotfiles). This configuration file uses **JSON** formatting, which lets us store our ESLint settings as properties on a Javascript object. Using a standardized file format like JSON allows many different programs, including VS Code, to interact with our configured settings. The ESLint config file can also be written in Javascript or [YAML](https://rollout.io/blog/yaml-tutorial-everything-you-need-get-started/), but JSON is the simplest for now.
 
-Now, open up **`.eslintrc.json`** in VS Code or another file editor, and copy in the below:
+### Configuring ESLint
+Open the **`.eslintrc.json`** file in VS Code and copy in the following:
 
 ```json
 {
@@ -88,17 +96,18 @@ Now, open up **`.eslintrc.json`** in VS Code or another file editor, and copy in
 }
 ```
 `env:` sets the environments in which we expect to run our code. We've enabled support for browser-based Javascript, as well as the modern Javascript features introduced by [ES6 / ECMAScript 2015](https://www.geeksforgeeks.org/introduction-to-es6/).  
-`extends:` is where we set the AirBnB ruleset we installed with `eslint-config-airbnb`. Our current environment will be an _extension_ of the rules in the AirBnB package.  
+`extends:` specifies the ruleset(s) we want to follow. In this, it's the AirBnB ruleset we added _via_ `eslint-config-airbnb`. Our new ESLint configuration will be an _extension_ of the rules in the AirBnB package.  
 
-**YAY!!** We've finished installing ESLint with a basic working configuration. One more step before we have our awesome new linting abilities enabled in VS Code.
+**YAY!!** ESLint is now installed with a working AirBnB ruleset. The next will add our awesome new linting abilities to VS Code.
 
-## STEP 2: VS Code Integration
+## STEP 2: VS Code
 
+### Installing the extension
 If you're not already in VS Code, open it up now. Open up the [Extensions pane](https://code.visualstudio.com/docs/editor/extension-gallery) and search for [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) by Dirk Baeumer. Click the _Install_ button.
 
-Once the ESLint extension is installed, we just need to update our VS Code settings. If you're not sure how to access your VS Code settings, review [Sey's guide](https://github.com/seyitaintkim/VS-Code) one more time.  
-(_Hint:_ CTRL+SHFT+P > "Open Settings")  
-We have two goals: to use ESlint as our default formatter and to format our code autmatically when saving. To achieve this, update the following settings:
+### Updating VS Code settings
+ If not sure how to access Settings in VS Code, check [Sey's guide](https://github.com/seyitaintkim/VS-Code). (_Hint:_ CTRL+SHFT+P > "Open Settings")  
+With the ESLint extension installed, update the two settings shown below. You can either search for these by name in the Settings GUI, or directly paste them code into your VS Code `**settings.JSON**` file:  
 
 ```json
   "editor.codeActionsOnSave": {
@@ -107,57 +116,61 @@ We have two goals: to use ESlint as our default formatter and to format our code
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
 ```
 
-You can either search for these setting by name in the VS Code Settings GUI, or directly paste the above code into your VS Code `**settings.JSON**` file.  
-`editor.CodeActionsOnSave` will allows VS Code to use ESLint to re-format many of our code errors whenever we save a file.  
-`editor.defaultFormatter` sets the ESLint extension as our default formatter for all files in VS Code.  
+1. `editor.CodeActionsOnSave` lets VS Code use ESLint to automatically re-format many of our style issues whenever we save a file.  
+1. `editor.defaultFormatter` sets the ESLint extension as our default formatter for all files in VS Code.  
  
 If you want to explore all of the VS Code settings available for ESLint, check out the extension [documentation](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint).
 
-**_You're finally done!_** You should now see ESLint highlighting any errors in your Javascript code files, and it should even fix a few simple style mistakes on save, such as single-quote vs. double-quote for strings. If you're not seeing any results, see the [notes](#checking-if-your-install-worked) below for some trouble-shooting tips.
+**_You're finally done!_** You should now see ESLint highlighting errors in your JS files, and it should even fix a few simple style mistakes on save, such as single v. double quote or missing semi-colons. If you're not seeing any of this, check the [notes](#checking-if-your-install-worked) below for some trouble-shooting tips.
 
-_...but wait._ What about Prettier? Well, that's where things get complicated. If you're happy with the error messages and auto-fixing we've enabled so far, feel free to stop here. However, if you want more powerful auto-formatting, including automatic line breaks for long lines (think lots of function parameters), then continue on to Step 3 below.
+_...but wait._ What about Prettier? This is where it can get a little more complicated. If you're happy with what we've enabled so far, feel free to stop here. You'll still have a working linter in VS Code. However, if you want more powerful auto-formatting, including automatic line breaks for long lines (think lots of function parameters), then continue to Step 3.
 
-## STEP 3: Install Prettier & Plugins
+## STEP 3: Prettier
 
-Before we continue with our Prettier install, we have to decide _which_ Prettier we want to use. Let me explain:  
-_**Prettier works magic.**_ It takes long lines, breaks them up logically, and re-formats all sorts of other little consistencies that crop up in our code over time. To do this efficiently, Prettier has [very few user-configurable options](https://prettier.io/docs/en/option-philosophy.html); most formatting decisions are hard-coded in. Unfortunately, one of these hard-coded decisions presents a major conflict with our chosen style guide: [where you place your operators around linebreaks](https://github.com/airbnb/javascript#control-statements). Prettier will always move your operators to the end of a line, while AirBnB prefers operators at the start of a newline. People seem to have [strong opinions](https://github.com/prettier/prettier/issues/3806) about this issue, and I've ultimately sided with the start-of-line AirBnB camp (cleaner git diffs, easier to read, etc). However, you can follow your own heart on this one.
+### Choosing a Prettier version
+Before we continue, we have to decide _which_ Prettier we want to use. Let me explain:
 
-If you're fine with operators at the end of lines, continue with the normal Prettier install:
+_**Prettier works magic.**_ It takes long lines, breaks them up logically, and re-formats all sorts of other little consistencies that crop up in our code over time. To do this efficiently, Prettier has [very few user-configurable options](https://prettier.io/docs/en/option-philosophy.html); most formatting decisions are hard-coded in. Unfortunately, one of these hard-coded decisions conflicts significantly with our chosen style guide: [where you place your operators around linebreaks](https://github.com/airbnb/javascript#control-statements). Prettier will always move your operators to the end of a line, while AirBnB prefers operators at the start of a newline. People seem to have [strong opinions](https://github.com/prettier/prettier/issues/3806) about this issue, and I've ultimately sided with the start-of-line AirBnB camp (cleaner git diffs, easier to read, etc). Before you continue, I suggest doing a little research and following your heart on this one.
 
-`npm install --save-dev prettier`
+### Installing Prettier
+_If you're fine with operators at the end of the line,_ continue with the normal Prettier install:
 
-If you want your operators at the start of a newline, there's a [fork](https://github.com/btmills/prettier) for that! Choosing this route will require **one additional step** not needed for the normal version. To install the forked version of Prettier with leading operators, use this command _**instead**_:
+**$** `npm install --save-dev prettier`
 
-`npm install --save-dev @btmills/prettier`
+_If you want your operators at the start of a newline,_ there's a [fork for that](https://github.com/btmills/prettier)! Choosing the fork will require **one additional step** not needed for the normal version. To install the forked version of Prettier with leading operators, _**use this command instead:**_
 
-Once you've installed your chosen version of Prettier, you can move on. All the commands that follow will be the same for either version, with the addition of one extra step (clearly marked below) if you chose the _@btmills_ fork.
+**$** `npm install --save-dev @btmills/prettier`
 
-In order to integrate Prettier with our ESLint workflow, we need two more packages:  
-`eslint-config-prettier` turns off all the ESLint rules covered by Prettier's auto-formatting.  
-`eslint-plugin-prettier` allows us to apply Prettier's fixes directly from within ESLint. More on this later.  
+All the commands that follow will now be the same for both versions, with the additional step for the _@btmills_ fork clearly labeled just below.
+
+### Installing integration packages
+Prettier is a standalone program, so we'll need two more packages to integrate it with ESLint:
+
+**$** `npm install --save-dev eslint-config-prettier eslint-plugin-prettier`
+
+1. `eslint-config-prettier` turns off all the ESLint rules covered by Prettier's auto-formatting.  
+1. `eslint-plugin-prettier` allows us to apply Prettier's fixes directly from within ESLint. More on this later.  
 To install both packages:
-
-`npm install --save-dev eslint-config-prettier eslint-plugin-prettier`
 
 <details>
 <summary><em><b>IMPORTANT! If you chose @btmills/prettier...</b></em></summary>
-This is the "small additional step." We're going to make one edit to the contents of the <code>eslint-plugin-prettier</code> package we just installed. Follow these instructions step-by-step:
+This is the "additional step." Since the forked package has a different name than the normal package, we need to make one edit to the contents of <code>eslint-plugin-prettier</code>. Follow these instructions step-by-step:
 <br>
 <ol>
   <li>
-    Open the <code>node_modules</code> folder in your current directory.
+    Open the <code><b>node_modules</b></code> folder found in your current directory.
   </li>
   <li>
-    Inside <code>node_modules</code>, find the folder named <code>eslint-plugin-prettier</code> and open it.
+    Inside <code><b>node_modules</b></code>, find the folder named <code><b>eslint-plugin-prettier</b></code> and open it.
   </li>
   <li>
-    Open the file named <code>eslint-plugin-prettier.js</code>.
+    Open the file named <code><b>eslint-plugin-prettier.js</b></code>.
   </li>
   <li>
     On (or near) line 168, find this code: <code>prettier = require('prettier');</code>. If you have trouble locating it, search for the phrase "expensive to load" which appears in the comment above our desired line.
   </li>
   <li>
-    Edit the file by changing the string 'prettier' inside <code>require('prettier')</code> to '@btmills/prettier'. When you're done, lines 166 to 169 should look like this:<br>
+    Edit the file by changing the string '<i>prettier</i>' inside <code>require('prettier')</code> to '<i>@btmills/prettier</i>'. When you're done, lines 166 to 169 should look like this:<br>
     <pre><code>
       if (!prettier) {
         // Prettier is expensive to load, so only load it if needed.
@@ -171,7 +184,8 @@ This is the "small additional step." We're going to make one edit to the content
 </ol>
 </details>
 
-Our last step for Prettier is to update our configuration files. Open the same **`.eslintrc.json`** file as before. You can copy/paste the below code exactly as-is, overwriting our existing code:
+### Updating ESLint configuration
+To add our new Prettier tools into our ESLint configuration, open the same **`.eslintrc.json`** file as before. You can copy/paste the below code exactly as-is, overwriting the contents:
 
 ```json
 {
@@ -187,15 +201,16 @@ Our last step for Prettier is to update our configuration files. Open the same *
 }
 ```
 
-- We've now extended our configuration with Prettier (really `eslint-config-prettier`) in addition to AirBnB. Because Prettier is second in the array, it's configuration will be applied _after_ AirBnB, overwriting any conflicting rules. When adding additional plugins down the line, you will almost _always_ want to keep Prettier last.
-- The new `plugins` property connects our `eslint-plugin-prettier` package to ESLint. This allows ESLint to use Prettier for auto-formatting our code.
-- The `"prettier/prettier": ["error"]` property within `rules` allows ESLint to show us Prettier's style warnings as normal ESLint errors. This functionality is part of the `eslint-plugin-prettier` package.
+- We've extended our configuration with Prettier (really `eslint-config-prettier`) in addition to AirBnB. Since Prettier is second in the array, it's configuration will be applied _after_ AirBnB, overwriting any conflicting rules. If you add additional rulesets in the future, you'll almost _always_ want to keep Prettier last.
+- The new `plugins` property connects our `eslint-plugin-prettier` package to ESLint. This allows ESLint to directly call Prettier for auto-formatting our code.
+- The `"prettier/prettier": ["error"]` property within `rules` lets ESLint show Prettier's style warnings as normal ESLint errors. This is part of the `eslint-plugin-prettier` package.
 
-Lastly, we need to tweak two settings in Prettier to match the AirBnB style guide. Start by creating a Prettier configuration file called **`.prettierrc`**:
+### Configuring Prettier
+Prettier has it's own configuration file called **`.prettierrc`**. Create it now:
 
-`touch .prettierrc`
+**$** `touch .prettierrc`
 
-Take note of the leading dot! You may also notice that this file doesn't have a file extension - that's a-okay. Prettier is expecting to find a file with this exact name, we want to leave it as-is. Open the new **`.prettierrc`** file and paste in the following:
+Take note of the leading dot! You may also notice that this file doesn't have a file extension - that's a-okay. Prettier is expecting to find a file with this exact name, we want to leave it as-is. We need to override two of Prettier's default settings, so open the new **`.prettierrc`** file and paste in the following:
 
 ```
 {
@@ -204,44 +219,146 @@ Take note of the leading dot! You may also notice that this file doesn't have a 
 }
 ```
 
-This sets our preferred max line width to [100 characters](https://github.com/airbnb/javascript#whitespace--max-len) and our default string format to [single quotes](https://github.com/airbnb/javascript#strings--quotes) instead of double.
+This sets our preferred max line width to [100 characters](https://github.com/airbnb/javascript#whitespace--max-len) and our default string format to [single quotes](https://github.com/airbnb/javascript#strings--quotes) instead of double quotes. These updates bring us in line with AirBnB.
 
-_And that's it! **You're done.**_ You should now see ESLint highlighting all of your errors in VS Code, and Prettier auto-formatting your style when you save.
+_And that's it!_ **You're done.** You should now see ESLint highlighting all of your errors in VS Code, and Prettier auto-formatting your style when you save.
 
-_... but what about the Prettier extension?_ We don't need it. Because `eslint-plugin-prettier` already connects the Prettier formatter to ESLint, we can just rely on the ESLint plugin itself. Every time the ESLint formatter is called on save, it will automatically add Prettier's formatting on top. It's one less plugin to potentially break or cause conflicts, and one fewer group of settings to manage.
+_... but what about the Prettier extension?_ We don't need it. Because `eslint-plugin-prettier` already connects Prettier's formatter to ESLint, we can just rely on the ESLint plugin alone. Every time the ESLint formatter is called on save, it will automatically add Prettier's formatting on top. One less thing to worry about!
 
 ## STEP 4: More Configuration (Optional)
 
-If you made it to the end of Step 3 with everything working, you're in great shape. You can safely call it a day and have a working linter/formatter set-up many Javascript files to come. However, if you want to tailor you're environment a bit more, this step will walk you through common additional settings you can enable to personalize your environment and/or enforce stricter style adherence than the simple config detailed above.
+If you made it to the end of Step 3 with everything working, you're in great shape. You can safely call it a day and have a working set-up for many JS files to come. If you want to tailor your environment a bit more, this step will walk you through common additional settings. You can enable some or all of these to personalize your environment and/or enforce stricter style adherence than the simple config detailed above. You can also view my current ESLint config file [here](../Dotfiles/.eslintrc.json).
 
-[My complete ESLint config file](../Dotfiles/.eslintrc.json)  
-DETAILS TODO
+### Reference Pages
+If you want explore the settings on your own, the following links are a good place to start. For the packages, don't be afraid to dig around into the course code! It's a great way to understand more about how things function and interconnect under-the-hood. 
+- [Configuring ESLint](https://eslint.org/docs/user-guide/configuring)
+- [Prettier Docs](https://prettier.io/docs/en/index.html)
+- [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
+- [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
+- [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)
 
 ### VS Code setting specificity
-// how to enable settings for specific file types only  
-// [My current VS Code settings](../Dotfiles/VSCODE-settings.jsonc)
+When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file types, not just Javascript. This shouldn't cause any issues, as ESLint won't parse non-Javascript files. If you decide to set up other formatters for non-Javascript files, you'll want change your VS Code settings to more narrowly target the ESLint extension. You can do this with [language specific editor settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings):
+```json
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+```
+
+(For reference, my complete & annotated VS Code settings can be found [here](../Dotfiles/VSCODE-settings.jsonc).)
 
 ### .prettierrc options
-// other available options  
-// [My config file](../Dotfiles/.prettierrc)
+As discussed, Prettier doesn't let us do a whole lot of configuration. We only needed to change two options to match AirBnB, but we can customize [a few more](https://prettier.io/docs/en/options.html) if we want. [My Prettier config file](../Dotfiles/.prettierrc) specifies all of the options I'm opiniated about, even though I'm just re-stating the default behavior for most of them.
 
 ### String Format Power-Ups
-// re-enabling ESLint to enforce string literal rules
+One set of rules that breaks during Prettier / ESLint integration is string templating. We want to avoid template literals unless necessary, but always prefer template literals over string concatenation. To re-enable this behavior, we need to add an explicit rule in our **`.eslintrc.json`** file:
+
+```jsonc
+  "rules": {
+    ...
+    "quotes": [
+      "error",
+      "single",
+      { "avoidEscape": true, "allowTemplateLiterals": false }
+    ],
+    ...
+  }
+``` 
 
 ### Environment Globals: the lastest and greatest (including jQuery)
-// additional environment options and avoiding bling errors
+[Environments](https://eslint.org/docs/user-guide/configuring#specifying-environments) in ESLint are really just sets of global variables. By specifying an environment, we tell ESLint to **not** mark these variables as errors when we use them in a file without having provided our own explicit definition. Global variables can include keywords like _Set_, for ES6 code, or the _window_ object, for browser-based code. We can specify as many different, overlapping environments as we want, but you shouldn't just enable everything withou cause. If we're working exclusively on browser-based code, leaving Node out of our environment list will ensure that we don't sneak in an Node-specific globals by mistake. I've specified only the following for now:
+
+- `browser`: Since most of my code is front-end Web Dev work, this covers 95% of what I need.
+- `es2020`: This lets me use all the Javascript language features up through the most recent ECMAScript spec, including features from earlier specs like ES6. If you're using a transpiler or runtime that **doesn't** support these features yet, you may want to specify `es6` instead.
+- `jquery`: I don't use a lot of jQuery, but this saves me from `$`-operator warnings when I do.
 
 ### ESLint Parser Options
-// setting [ECMA language spec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources) to the parser to the most recent 2020 edition  
-&  
-// enabling [_module_ syntax](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac).
+You don't need to get too deep into [parserOptions](https://eslint.org/docs/user-guide/configuring#specifying-parser-options), but it does let you get a bit more specific on what syntax and language features you want support. I specify three sub-settings in my config:
+
+- `"ecmaVersion": 2020`: It's probably best to leave this out, as the `es2020` environment setting will enable this automatically. If you haven't specified an ES version in your environments, you can enable to syntax (_but not the global variables!_) through this setting. Not sure what all this ecma / ES talk is about? [Learn more here.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources)
+- `"sourceType": "module"`: This tells the parser to expect [module _import / export_ syntax](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac). Can safely be skipped until you know you need it.
+- `"ecmaFeatures": { "jsx": true }`: This is a React-related setting (see below). It tells the parser to allow [JSX syntax](https://reactjs.org/docs/introducing-jsx.html) in the files we're linting. 
 
 ### Additional ESLint Rules (or, why eslint-config-airbnb isn't enough)
-// Some good rules to explicitly enable that are not encluded in eslint-config-airbnb (despite appearing in the AirBnB style guide)
+ESLint supports three levels of warning for most rules:
+0. `"off"`: the rule will not be in your code flagged whatsoever
+0. `"warn"`: you'll see a yellow or orange squiggly, and the rule will be counted in the ⚠ status bar symbol within VS Code
+0. `"error"`: normal error, red squiggly, counted with ⓧ in VS Code status bar
+You can set each rule to a specific warning level to group your errors in whatever way works for.
+
+If you've gotten this far, you may have noticed some rules from the AirBnB style guide aren't showing as warnings or errors. If you [dig into the package source code](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules), you'll see that not every rule specified in the style guide has actually been enabled! We can re-enable any of these ommissions by adding them to the `rules` object in **`.eslintrc.json`**:
+
+```jsonc
+  // Not all missing rules are listed here
+
+  "default-param-last": ["error"],
+  "default-case-last": "error",
+  "func-style": ["warn", "expression"],
+  "no-useless-call": "error",
+  "prefer-arrow-callback": "error",
+  "prefer-exponentiation-operator": "error",
+  "prefer-regex-literals": "error",
+
+```
+
+Most of these are pretty straightforward, and you can always [check the rules doc](https://eslint.org/docs/rules/) for more info. **`func-style`**, though, is [worth explaining](https://github.com/airbnb/javascript#functions--declarations). This rule will raise an error when you use a function declaration instead of a (named) function expression:
+
+```javascript
+  // via AirBnB
+
+  // bad
+  function foo() {
+    // ...
+  }
+
+  // good
+  // lexical name distinguished from the variable-referenced invocation(s)
+  const short = function longUniqueMoreDescriptiveLexicalFoo() {
+    // ...
+  };
+```
+
+The warnings will underline _**the entire function definition**_, so any code that has reason to use function declarations will get very distracting, very quickly. Only enable this rule if you're willing to stick _very strictly_ to function expressions.
 
 ### React!
-// Info on React coverage  
-// Targeting jsx files
+Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React! For maximum utility, we still need to tweak a few settings:
+
+#### Within `.eslintrc.json`
+1. Add `"prettier/react"` as the _last_ item in the `"extends"` array.
+1. No need to add `"react"` as an explicit plug-in, since AirBnB has already taken care of that for us.
+1. Update `"parserOptions"` to support JSX syntax:
+```json
+"parserOptions": {
+  "ecmaFeatures": {
+    "jsx": true
+  }
+}
+```
+1. Add any additional React-specific rules you may want:
+```json
+  "react/prefer-stateless-function": ["off"],
+  "react/jsx-key": "warn",
+  "react/no-direct-mutation-state": "error",
+  "react/no-adjacent-inline-elements": "warn"
+```
+
+#### Within VS Code
+If ESLint is enabled for _all_ filetypes in VS Code, you can skip this step. If you added a Javascript selector to your ESLint settings, as described above, you'll need to target .jsx files as well:
+```json
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+  },
+```
+
+And that's it! You should be all set to lint and auto-fix all your JS & JSX files within VS Code.
+
+Thanks for reading 😊
 
 ## NOTES
 

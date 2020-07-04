@@ -7,6 +7,21 @@
    * Comments are NOT supported in the actual VS Code settings.json file.
    */
 
+  // LANGUAGE SETTINGS
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint", // Sets ESLint as my default formatter for all files
+    "editor.codeActionsOnSave": { // object sets which actions VS Code should take when saving a file
+      "source.fixAll.eslint": true // fixes all auto-fixable problems through ESLint (which calls Prettier)
+    }
+  },
+
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint", // Sets ESLint as my default formatter for all files
+    "editor.codeActionsOnSave": { // object sets which actions VS Code should take when saving a file
+      "source.fixAll.eslint": true // fixes all auto-fixable problems through ESLint (which calls Prettier)
+    }
+  },
+
   // EDITOR
   "editor.lineNumbers": "relative", // This one is Vim-related
   // Sets gutter line numbers to absolute line number for current line,
@@ -23,10 +38,6 @@
   "editor.cursorBlinking": "smooth", // Vim makes my cursor a block, so this smooths the blinking
   "editor.snippetSuggestions": "inline", // added on Sey's advice
   "editor.acceptSuggestionOnCommitCharacter": false, // reduce accidental accept-suggestion
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint", // Sets ESLint as my default formatter for all files
-  "editor.codeActionsOnSave": { // object sets which actions VS Code should take when saving a file
-    "source.fixAll.eslint": true // fixes all auto-fixable problems through eslint (which calls Prettier)
-  },
 
   // EXPLORER
   "explorer.sortOrder": "type", // Orders Explorer pane to display folder first, then group files by type
@@ -42,8 +53,7 @@
   "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // use themed icons as well
   "workbench.settings.useSplitJSON": true, // always show defaults file when editing settings.JSON
   "workbench.editor.highlightModifiedTabs": true, // adds a little highlight to modified open tabs
-  "workbench.colorCustomizations": {
-    // I may be overwriting this with my Vim config - not totally sure
+  "workbench.colorCustomizations": { // I may be overwriting this with my Vim config - not totally sure
     "statusBar.background": "#8FBCBB",
     "statusBar.noFolderBackground": "#8FBCBB",
     "statusBar.debuggingBackground": "#8FBCBB",
