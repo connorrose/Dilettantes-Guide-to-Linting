@@ -358,8 +358,8 @@ If ESLint is enabled for _all_ filetypes in VS Code, you can skip this step. If 
 ```
 
 And that's it! You should be all set to lint and auto-fix all your JS & JSX files within VS Code.
----
-Thanks for reading 😊
+
+###### Thanks for reading 😊
 
 ## NOTES
 
