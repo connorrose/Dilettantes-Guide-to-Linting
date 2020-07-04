@@ -2,18 +2,14 @@
 	"env": {
 		"browser": true,
 		"es2020": true,
-		"node": true
+		"jquery": true
 	},
 	"extends": [
-		"plugin:react/recommended",
 		"airbnb",
 		"prettier",
 		"prettier/react"
 	],
-	"plugins": [
-		"react",
-		"prettier"
-	],
+	"plugins": ["prettier"],
 	"parserOptions": {
 		"ecmaVersion": 2020,
 		"sourceType": "module",
@@ -22,13 +18,22 @@
 		}
 	},
 	"rules": {
-		"no-console": "off",
-		"func-style": ["error", "expression"],
 		"prettier/prettier": ["error"],
 		"quotes": [
-			"error",
-			"single",
-			{ "avoidEscape": true, "allowTemplateLiterals": false }
-		]
+      			"error",
+      			"single",
+      			{ "avoidEscape": true, "allowTemplateLiterals": false }
+    		],
+		"default-param-last": ["error"],
+		"default-case-last": "error",
+		"func-style": ["warn", "expression"],
+		"no-useless-call": "error",
+		"prefer-arrow-callback": "warn",
+		"prefer-exponentiation-operator": "error",
+		"prefer-regex-literals": "error",
+		"react/prefer-stateless-function": ["off"],
+		"react/jsx-key": "warn",
+		"react/no-direct-mutation-state": "error",
+		"react/no-adjacent-inline-elements": "warn"
 	}
 }

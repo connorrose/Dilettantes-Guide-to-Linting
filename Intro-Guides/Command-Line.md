@@ -21,7 +21,7 @@ If I've made any mistakes, as I'm sure I have, please feel free to submit a pull
 * Shell: The shell is the logical program that exchanges commands and return values between the terminal and command line. It runs inside the terminal and is, in essence, a command processor. Two of the most popular shells are [Bash and Zsh](https://stackabuse.com/zsh-vs-bash/) (commonly pronounced "Zee-shell"). **_Everything in this guide has been tested using the default macOS Terminal and Bash._** If you are using a different terminal emulator or shell, there may be some parts of this guide that do not directly translate. Most of the concepts should remain the same. The most recent macOS version (10.15 Catalina) includes Zsh as a default option, so you may find [this walkthrough](https://scriptingosx.com/2019/06/moving-to-zsh/) helpful for translating Bash-specific info to Zsh.  
 Note: *bash* can also refer to the simple programming language that is understood by Bash and other shells. The *bash* language can be used to write [shell scripts](https://flaviocopes.com/bash-scripting/).
 
-**_Please see Step 0 of the [ESLint-Prettier guide](./ESLint-Prettier.md) if you are not familiar with the very basics of NPM as well._** 
+**_Please see the notes in my [ESLint-Prettier guide](./ESLint-Prettier.md#a-few-words-on-npm) if you are not familiar with the very basics of NPM as well._** 
 
 ## STEP 1: Navigating the Filesystem
 - What is the filesystem & location within the terminal

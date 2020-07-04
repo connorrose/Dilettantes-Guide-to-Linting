@@ -2,16 +2,16 @@
   /**
    * This is the JSON file VSCode uses to overwrite default settings.
    * It should be edited directly in VSCODE by searching for OPEN SETTINGS in the Command Palette.
-   * You can copy-paste it directly if you'd like, but it's probably better to just enable
-   * on a line-by-line basis, as your preferences and working environment is
-   * likely different than mine. Also, cannot include comments in an actual JSON file.
-   * The comments I've added here are just an explainer for easier sharing.
+   * The filename I'm using here is NOT the actual filename as saved on your computer.
+   * Additionally, the comments were added specifically for this public version.
+   * Comments are NOT supported in the actual VS Code settings.json file.
    */
 
   // EDITOR
-  "editor.lineNumbers": "relative", // This one is Vim-related, cont'd below
-  // Sets gutter line numbers to absolute for current line, and relative for lines
-  // on either side. Easier to enter vim commands like "jump 12 lines up <12j>"
+  "editor.lineNumbers": "relative", // This one is Vim-related
+  // Sets gutter line numbers to absolute line number for current line,
+  // and relative for lines on either side.
+  // Easier to enter vim commands like "jump up 12 lines" => <12j>
   "editor.detectIndentation": false, // Lets tab key auto-insert spaces on EVERY file
   "editor.tabSize": 2, // Sets tab auto-insert to two spaces
   "editor.fontFamily": "FiraCode-Retina", // See below link for download instructions
@@ -22,8 +22,11 @@
   "editor.cursorSurroundingLines": 4, // If scrolling at bottom of page, always show at least 4 lines below cursor
   "editor.cursorBlinking": "smooth", // Vim makes my cursor a block, so this smooths the blinking
   "editor.snippetSuggestions": "inline", // added on Sey's advice
-  "editor.formatOnSave": true, // IMPORTANT PRETTIER CONFIG STEP
-  "editor.defaultFormatter": "esbenp.prettier-vscode", // Sets Prettier as my default Formatter for everything
+  "editor.acceptSuggestionOnCommitCharacter": false, // reduce accidental accept-suggestion
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint", // Sets ESLint as my default formatter for all files
+  "editor.codeActionsOnSave": { // object sets which actions VS Code should take when saving a file
+    "source.fixAll.eslint": true // fixes all auto-fixable problems through eslint (which calls Prettier)
+  },
 
   // EXPLORER
   "explorer.sortOrder": "type", // Orders Explorer pane to display folder first, then group files by type
@@ -34,13 +37,13 @@
   "scm.diffDecorationsGutterWidth": 5, // make the highlights wider for visibility
 
   // WORKBENCH
-  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme! Works fine without paying
-  // https://monokai.pro/vscode (ignore the bit about purchasing a license)
-  "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // Uses themed icons as well
+  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme!
+  // https://monokai.pro/vscode (you can safely ignore the bit about purchasing a license)
+  "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // use themed icons as well
   "workbench.settings.useSplitJSON": true, // always show defaults file when editing settings.JSON
-  "workbench.editor.highlightModifiedTabs": true, // not very useful honestly
+  "workbench.editor.highlightModifiedTabs": true, // adds a little highlight to modified open tabs
   "workbench.colorCustomizations": {
-    // I think I'm overriding all this with my Vim config?
+    // I may be overwriting this with my Vim config - not totally sure
     "statusBar.background": "#8FBCBB",
     "statusBar.noFolderBackground": "#8FBCBB",
     "statusBar.debuggingBackground": "#8FBCBB",
@@ -51,9 +54,7 @@
   // See individual extension pages in Marketplace for full config options
 
   // ESLint
-  "eslint.alwaysShowStatus": true, // all squiggly, all the time
-  "eslint.codeActionsOnSave.mode": "problems", // might be Prettier related?
-  "eslint.format.enable": true, // almost definitley Prettier related
+  "eslint.alwaysShowStatus": true, // adds ESLint menu button to status bar
 
   // Vim
   "vim.statusBarColorControl": true, // All my vim configs are mode colors for the status bar
@@ -70,7 +71,12 @@
   "vim.statusBarColors.surroundinputmode": "#007ACC",
 
   // Bracket Pair Colorizer 2
-  "bracket-pair-colorizer-2.colors": ["steelblue"] // Array sets alternating colors for nested brackets.
-  // You can include from 1 to many colors. Multi-color brackets are hard for me to read, so I set all brackets to one color.
-  // I use the extension only to highlight the vertical connecting bars between pairs.
+  "bracket-pair-colorizer-2.colors": [
+    "steelblue",
+    "cadetblue"
+  ] // Array sets alternating colors for nested brackets.
+  // You can include from 1 to many colors.
+  // Rainbow brackets are hard for me to read, so I just use two similar alternating colors.
+  // This lets me tell adjacent brackets apart visiualize scope changes while still confining "brackets"
+  // to one color family on a quick visual scan
 }
