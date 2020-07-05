@@ -324,8 +324,20 @@ Most of these are pretty straightforward, and you can always [check the ESLint r
 
 If you do need to use a standard function declaration for some reason, the warnings squiggly will underline _**the entire function definition**_, which can get very distracting, very quickly. Only enable this rule if you're willing to stick _very strictly_ to function expressions.
 
-### React!
-Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React! Still, for maximum utility, we should tweak a few settings:
+### Nested Config Files
+Sometimes you'll clone a project that already contains ESLint configuration file(s) and packages. If you have multiple configuration files in a nested directory structure, ESLint will automatically try to combine _all_ those files until it hits your home directory. To prevent this behavior, add `"root": true` to the outermost **`.eslintrc*`** file you want included in the chain. Also, be aware that ESLint applies a hierachy of filetypes when determing how to apply multiple config files within the same folder:
+
+1. `.eslintrc.js`
+1. `.eslintrc.yaml`
+1. `.eslintrc.yml`
+1. `.eslintrc.json`
+1. `.eslintrc`
+1. `package.json`
+
+See [the docs](https://eslint.org/docs/2.0.0/user-guide/configuring#configuration-cascading-and-hierarchy) for more info.
+
+### REACT!
+Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React (exluding _Hooks_)! Still, for maximum utility, we should tweak a few settings:
 
 #### Within `.eslintrc.json`
 1. Add `"prettier/react"` as the _last_ item in the `"extends"` array.
@@ -344,10 +356,10 @@ Guess what - _you've already set up coverage for React._ The `eslint-config-airb
       "react/no-direct-mutation-state": "error",
       "react/no-adjacent-inline-elements": "warn"
     ```
-1. _Note:_ We **don't** need to add `"react"` as a plug-in, since AirBnB already took care of that for us.
+1. _Note:_ We **don't** need to add `"react"` as a plug-in, since `eslint-config-airbnb` already took care of that for us.
 
 #### Within VS Code
-If ESLint is enabled for _all_ filetypes in VS Code, you can skip this step. If you added a Javascript selector to your ESLint settings, as described above, you'll need to target _.jsx_ files as well:
+If ESLint is enabled for _all_ filetypes in VS Code, you can skip this step. If you added a Javascript selector to your ESLint settings, as described above, you'll want to target _.jsx_ files as well:
 ```json
   "[javascriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
