@@ -206,13 +206,13 @@ Here's what we just did:
 - The `"prettier/prettier": ["error"]` property within `rules` lets ESLint show Prettier's style warnings as normal ESLint errors. This works in connection with the `eslint-plugin-prettier` package.
 
 ### Configuring Prettier
-Prettier has it's own configuration file called **`.prettierrc`**. Create it now:
+Prettier has it's own configuration file called **`.prettierrc.json`**. Create it now:
 
 **$** `touch .prettierrc`
 
-Take note of the leading dot! You may also notice that this file doesn't have a file extension - that's a-okay. Prettier is expecting to find a file with this exact name, so we can safely leave it as-is. We need to override two of Prettier's default settings, so open the new **`.prettierrc`** file and paste in the following:
+Take note of the leading dot! We need to override two of Prettier's default settings, so open the new **`.prettierrc`** file and paste in the following:
 
-```
+```json
 {
   "printWidth": 100,
   "singleQuote": true
@@ -295,11 +295,10 @@ If you've gotten this far, you may have noticed some rules from the AirBnB style
 ```jsonc
   // Not all missing rules are listed here
 
-  "default-param-last": ["error"],
   "default-case-last": "error",
+  "default-param-last": ["error"],
   "func-style": ["warn", "expression"],
   "no-useless-call": "error",
-  "prefer-arrow-callback": "error",
   "prefer-exponentiation-operator": "error",
   "prefer-regex-literals": "error",
 
@@ -335,6 +334,13 @@ Sometimes you'll clone a project that already contains ESLint configuration file
 1. `package.json`
 
 See [the docs](https://eslint.org/docs/2.0.0/user-guide/configuring#configuration-cascading-and-hierarchy) for more info.
+
+Additionally, be aware that prettier uses a [different precedence] for _it's_ config file extensions:  
+1. `"prettier"` key in **`package.json`**
+1. `.prettierrc` file (containing either JSON or YAML)
+1. `.prettierrc.json`, `.prettierrc.yml`, or `.prettierrc.yaml`
+1. `.prettierrc.js` or `prettier.config.js` using `module.exports`
+1. `.prettierrc.toml`
 
 ### REACT!
 Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React (exluding _Hooks_)! Still, for maximum utility, we should tweak a few settings:
