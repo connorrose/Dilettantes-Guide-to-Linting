@@ -333,9 +333,7 @@ Sometimes you'll clone a project that already contains ESLint configuration file
 1. `.eslintrc`
 1. `package.json`
 
-See [the docs](https://eslint.org/docs/2.0.0/user-guide/configuring#configuration-cascading-and-hierarchy) for more info.
-
-Additionally, be aware that prettier uses a [different precedence] for _it's_ config file extensions:  
+See [the ESLint docs](https://eslint.org/docs/2.0.0/user-guide/configuring#configuration-cascading-and-hierarchy) for more info. Additionally, be aware that Prettier uses a [different precedence](https://prettier.io/docs/en/configuration.html) for _it's_ config file extensions:  
 1. `"prettier"` key in **`package.json`**
 1. `.prettierrc` file (containing either JSON or YAML)
 1. `.prettierrc.json`, `.prettierrc.yml`, or `.prettierrc.yaml`

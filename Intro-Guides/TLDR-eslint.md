@@ -20,11 +20,11 @@ If you already know your way around installing npm packages & setting up config 
         "prettier/react"
       ],
       "plugins": ["prettier"],
-	    "rules": {
-		    "prettier/prettier": ["warn"],
-		    "quotes": [
-      		"error",
-      		"single",
+      "rules": {
+        "prettier/prettier": ["warn"],
+        "quotes": [
+          "error",
+          "single",
           { "avoidEscape": true, "allowTemplateLiterals": false }
         ]
       }
