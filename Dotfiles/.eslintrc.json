@@ -1,6 +1,7 @@
 {
 	"env": {
 		"browser": true,
+		"node": true,
 		"es2020": true,
 		"jquery": true
 	},
@@ -18,22 +19,41 @@
 		}
 	},
 	"rules": {
-		"prettier/prettier": ["error"],
+		"prettier/prettier": ["warn"],
 		"quotes": [
       			"error",
       			"single",
       			{ "avoidEscape": true, "allowTemplateLiterals": false }
-    		],
-		"default-param-last": ["error"],
+        ],
+    "arrow-body-style": ["error", "as-needed"],
 		"default-case-last": "error",
-		"func-style": ["warn", "expression"],
+		"default-param-last": ["error"],
+    "func-style": ["off", "expression"],
+    "no-constant-condition": "error",
 		"no-useless-call": "error",
-		"prefer-arrow-callback": "warn",
 		"prefer-exponentiation-operator": "error",
-		"prefer-regex-literals": "error",
-		"react/prefer-stateless-function": ["off"],
-		"react/jsx-key": "warn",
-		"react/no-direct-mutation-state": "error",
-		"react/no-adjacent-inline-elements": "warn"
+    "prefer-regex-literals": "error",
+    "react/function-component-definition": ["off", {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": "arrow-function"
+    }],
+    "react/jsx-handler-names": ["error", {
+      "eventHandlerPrefix": "handle",
+      "eventHandlerPropPrefix": "on"
+    }],
+    "react/jsx-key": "error",
+    "react/jsx-no-useless-fragment": "off",
+    "react/jsx-sort-props": ["error", {
+      "callbacksLast": true,
+      "shorthandFirst": true,
+      "shorthandLast": false,
+      "ignoreCase": true,
+      "noSortAlphabetically": false,
+      "reservedFirst": false
+    }],
+		"react/no-adjacent-inline-elements": "error",
+    "react/no-direct-mutation-state": "error",
+    "react/no-multi-comp": "error",
+		"react/prop-types": ["error", { "skipUndeclared": true }]
 	}
 }
