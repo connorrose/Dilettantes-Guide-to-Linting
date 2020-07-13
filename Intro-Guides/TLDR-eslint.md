@@ -20,6 +20,9 @@ If you already know your way around installing npm packages & setting up config 
         "prettier/react"
       ],
       "plugins": ["prettier"],
+      "parserOptions": {
+        "ecmaFeatures": {"jsx": true}
+      },
       "rules": {
         "prettier/prettier": ["warn"],
         "quotes": [
