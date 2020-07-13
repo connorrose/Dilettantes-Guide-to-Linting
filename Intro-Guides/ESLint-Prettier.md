@@ -208,9 +208,9 @@ Here's what we just did:
 ### Configuring Prettier
 Prettier has it's own configuration file called **`.prettierrc.json`**. Create it now:
 
-**$** `touch .prettierrc`
+**$** `touch .prettierrc.json`
 
-Take note of the leading dot! We need to override two of Prettier's default settings, so open the new **`.prettierrc`** file and paste in the following:
+Take note of the leading dot! We need to override two of Prettier's default settings, so open the new **`.prettierrc.json`** file and paste in the following:
 
 ```json
 {
@@ -230,7 +230,7 @@ _... but what about the Prettier extension?_ We don't need it. Because `eslint-p
 If you made it to the end of Step 3 with everything working, you're in great shape. You can safely call it a day and have a working set-up for many JS files to come. If you want to tailor your environment a bit more, this step will walk you through common additional settings. You can enable some or all of these to personalize your environment and/or enforce stricter style adherence than the simple config detailed above. If you're interested, you can view my complete ESLint config file [here](../Dotfiles/.eslintrc.json).
 
 ### Reference Docs
-If you want explore the settings on your own, the following links are a good place to start. For the packages, don't be afraid to dig around into the source code! It's a great way to understand more about how things function and interconnect under-the-hood. 
+If you want to explore the settings on your own, the following links are good places to start. For the packages, don't be afraid to dig around into the source code! It's a great way to understand more about how things function and interconnect under-the-hood. 
 - [Configuring ESLint](https://eslint.org/docs/user-guide/configuring)
 - [Prettier Docs](https://prettier.io/docs/en/index.html)
 - [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb)
@@ -238,7 +238,7 @@ If you want explore the settings on your own, the following links are a good pla
 - [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)
 
 ### VS Code setting specificity
-When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file types, not just Javascript. This shouldn't cause any issues, as ESLint won't parse non-Javascript files. If you decide to set up other formatters for non-Javascript files, you'll want change your VS Code settings to more narrowly target the ESLint extension. You can do this with [language specific editor settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings):
+When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file types, not just Javascript. This shouldn't cause any issues, as ESLint won't parse non-Javascript files. However, if you decide to set up other formatters for non-Javascript files, you'll want change your VS Code settings to target the ESLint extension more narrowly. You can do this with [language specific editor settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings):
 ```json
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
@@ -248,10 +248,10 @@ When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file
   },
 ```
 
-(For reference, my complete & annotated VS Code settings can be found [here](../Dotfiles/VSCODE-settings.jsonc).)
+You'll also want to add `"[javascriptreact]"`, if applicable. For reference, my complete & annotated VS Code settings can be found [here](../Dotfiles/VSCODE-settings.jsonc).
 
 ### .prettierrc options
-As discussed, Prettier doesn't let us do a whole lot of configuration. We only needed to change two options to match AirBnB, but we can customize [a few more](https://prettier.io/docs/en/options.html) if we want. [My Prettier config file](../Dotfiles/.prettierrc) specifies all of the options I'm opiniated about, even though I'm just re-stating the default behavior for most of them.
+As discussed, Prettier doesn't let us do a whole lot of configuration. We only needed to change two options to match AirBnB, but we can customize [a few more](https://prettier.io/docs/en/options.html) if we want. [My Prettier config file](../Dotfiles/.prettierrc.json) specifies all of the options I'm opiniated about, even though I'm just re-stating the default behavior for most of them.
 
 ### String Format Power-Ups
 One set of rules that breaks during Prettier / ESLint integration is string templating. We want to avoid template literals unless necessary, but always prefer template literals over string concatenation. To re-enable this behavior, we need to add an explicit rule in our **`.eslintrc.json`** file:
@@ -271,24 +271,23 @@ One set of rules that breaks during Prettier / ESLint integration is string temp
 ### Environment Globals: the latest and greatest (including jQuery)
 [Environments](https://eslint.org/docs/user-guide/configuring#specifying-environments) in ESLint are really just sets of global variables. By specifying an environment, we tell ESLint to **not** mark these variables as errors when we use them in a file without having provided our own explicit definition. Global variables can include keywords like _Set_, for ES6 code, or the _window_ object, for browser-based code. You can specify as many different or overlapping environments as you want, but you shouldn't start enabling everything without good reason. If we're working exclusively on browser-based code, leaving Node out of our environment list will ensure we don't sneak in any Node-specific globals by mistake. I've specified only the following environments for now:
 
-- `browser`: Since most of my code is front-end Web Dev work, this covers 95% of what I need.
+- `browser`: Since much of my code is front-end Web Dev work, this covers most of what I need.
+- `node`: If I _am_ working on server code, I want to make sure I don't get unnecessary errors.
 - `es2020`: This lets me use all the Javascript language features up through the most recent [ECMAScript spec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources), including features from earlier specs like ES6. If you're using a [transpiler](https://scotch.io/tutorials/javascript-transpilers-what-they-are-why-we-need-them) or [runtime](https://medium.com/@olinations/the-javascript-runtime-environment-d58fa2e60dd0) that **doesn't** support these features yet, you may want to specify `es6` instead.
 - `jquery`: I don't use a lot of jQuery, but this saves me from `$`-operator warnings when I do.
 
 ### ESLint Parser Options
-You don't need to get too deep into [parserOptions](https://eslint.org/docs/user-guide/configuring#specifying-parser-options). They just let you get a bit more specific on what syntax and language features you want supported. I specify three parser sub-settings in my config:
+You don't need to get too deep into [parserOptions](https://eslint.org/docs/user-guide/configuring#specifying-parser-options). They just let you get a bit more specific on what syntax and language features you want supported. Two settings you may want to be aware of:
 
 - `"ecmaVersion": 2020` It's probably best to leave this out, as the `es2020` environment setting will enable this automatically. If you haven't specified an ES version in your environments, you can enable syntax (_but not the global variables!_) through this setting.
 - `"sourceType": "module"` This tells the parser to expect [module _import / export_ syntax](https://medium.com/@thejasonfile/a-simple-intro-to-javascript-imports-and-exports-389dd53c3fac). Can safely be skipped until you know you need it.
-- `"ecmaFeatures": { "jsx": true }` This is a React-related setting (see below). It tells the parser to allow [JSX syntax](https://reactjs.org/docs/introducing-jsx.html) in the files we're linting. 
 
 ### Additional ESLint Rules (or, why eslint-config-airbnb isn't enough)
-ESLint supports three levels of warning for most rules:
+ESLint supports three levels of warning for most rules. You can set rules to a specific warning level to group your errors in whatever way works for you:
 
-0. `"off"`: the rule will not be flagged whatsoever in your code 
-0. `"warn"`: you'll see a yellow or orange squiggly, and the rule will be counted in the ⚠ status bar symbol within VS Code
-0. `"error"`: normal error, red squiggly, counted with ⓧ in VS Code status bar  
-You can set any rule to a specific warning level to group your errors in whatever way works for you.
+0. `"off"`: the rule will not be flagged whatsoever in your code. 
+0. `"warn"`: you'll see a yellow or orange squiggly, and the rule will be counted in the ⚠ status bar symbol within VS Code.
+0. `"error"`: normal error, red squiggly, counted with ⓧ in VS Code status bar.
 
 If you've gotten this far, you may have noticed some rules from the AirBnB style guide aren't showing as warnings or errors. If you [dig into the package source code](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules), you'll see that not every rule specified in the style guide has actually been enabled! We can re-enable any of these ommissions by adding them to the `"rules"` object in **`.eslintrc.json`**:
 
@@ -321,10 +320,10 @@ Most of these are pretty straightforward, and you can always [check the ESLint r
   };
 ```
 
-If you do need to use a standard function declaration for some reason, the warnings squiggly will underline _**the entire function definition**_, which can get very distracting, very quickly. Only enable this rule if you're willing to stick _very strictly_ to function expressions.
+If you _do_ need to use a standard function declaration for some reason, the warnings squiggly will underline _**the entire function definition**_, which can get very distracting, very quickly. Only enable this rule if you're willing to stick _very strictly_ to function expressions.
 
 ### Nested Config Files
-Sometimes you'll clone a project that already contains ESLint configuration file(s) and packages. If you have multiple configuration files in a nested directory structure, ESLint will automatically try to combine _all_ those files until it hits your home directory. To prevent this behavior, add `"root": true` to the outermost **`.eslintrc*`** file you want included in the chain. Also, be aware that ESLint applies a hierachy of filetypes when determing how to apply multiple config files within the same folder:
+Sometimes you'll clone a project that already contains ESLint configuration file(s) and packages. If you have multiple configuration files in a nested directory structure, ESLint will automatically try to combine _all_ those files until it hits your home directory. To prevent this behavior, add `"root": true` to the outermost **`.eslintrc*`** file you want included in the chain. Note that ESLint applies a hierachy of filetypes when determing how to apply multiple config files within the same folder:
 
 1. `.eslintrc.js`
 1. `.eslintrc.yaml`
@@ -341,7 +340,7 @@ See [the ESLint docs](https://eslint.org/docs/2.0.0/user-guide/configuring#confi
 1. `.prettierrc.toml`
 
 ### REACT!
-Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React (exluding _Hooks_)! Still, for maximum utility, we should tweak a few settings:
+Guess what - _you've already set up coverage for React._ The `eslint-config-airbnb` package we installed brought along [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) as a dependency, and the AirBnB ruleset we extended includes configuration for React! Still, for maximum utility, we should tweak a few settings:
 
 #### Within `.eslintrc.json`
 1. Add `"prettier/react"` as the _last_ item in the `"extends"` array.
@@ -355,10 +354,10 @@ Guess what - _you've already set up coverage for React._ The `eslint-config-airb
     ```
 1. Add any additional React-specific rules you may want:
     ```json
-      "react/prefer-stateless-function": ["off"],
+      "react/prefer-stateless-function": ["warn"],
       "react/jsx-key": "warn",
       "react/no-direct-mutation-state": "error",
-      "react/no-adjacent-inline-elements": "warn"
+      "react/no-adjacent-inline-elements": "error"
     ```
 1. _Note:_ We **don't** need to add `"react"` as a plug-in, since `eslint-config-airbnb` already took care of that for us.
 
@@ -384,7 +383,7 @@ Prettier only fixes a narrow selection of style errors. It cannot fix most of th
 <br>
 
 ### A few words on npm
-**_npm_** is a package manager. It lets you use bits of code that other people have written, known as _modules_, on your local machine (_ie_, your laptop / desktop / hotwired Motorola Razr / _etc_). These modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders, including your npm modules, is sometimes called your project's _root_ directory. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in JSON that tracks lots of information about your project, including info on the various helper modules you've installed. We're not working directly in `package.json` file for this guide, but it's helpful to know what it is.
+**_npm_** is a package manager. It lets you use bits of code that other people have written, known as _packages_, on your local machine (_ie_, your laptop / desktop / hotwired Motorola Razr / etc). These modules can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders, including your npm modules, is sometimes called your project's _root_ directory. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in JSON that tracks lots of information about your project, including info on the various helper modules you've installed. We're not working directly in `package.json` file for this guide, but it's helpful to know what it is.
 
 Many npm packages also have _dependencies_. These are other packages that the main package requires in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. This can be the source of many set-up headaches! A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies.
 <br>
