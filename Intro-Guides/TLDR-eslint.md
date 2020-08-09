@@ -42,9 +42,11 @@ If you already know your way around installing npm packages & setting up config 
     ```
 1. Install the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) in VS Code
 1. Update the following VS Code settings:
-    ```json
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
+    ```jsonc
+    {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+      "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+      }
+    }
     ```
