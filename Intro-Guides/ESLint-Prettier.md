@@ -1,11 +1,9 @@
-# ESLINT > AIRBNB > PRETTIER > VS CODE
-
-This guide is a step-by-step walkthrough for setting up a Javascript linting workflow. I work exclusively on MacOS (10.15 Catalina), so your mileage may vary on Linux and Windows. The focus is on vanilla, browser-based Javascript, but it includes incidental coverage for [React](https://reactjs.org/) as well.
+This guide is a step-by-step walkthrough for setting up a Javascript linting workflow. I work exclusively on MacOS (10.15 Catalina), so your mileage may vary on Linux and Windows. The focus is on vanilla, browser-based Javascript, but includes incidental coverage for [React](https://reactjs.org/) as well.
 
 **The goal:**
 1. Install [ESLint](https://eslint.org/) locally, which will check our code for style and structural errors.
 1. Set the [AirBnB Style Guide](https://github.com/airbnb/javascript) as our default ruleset.
-1. Install either [Prettier](https://prettier.io/) or [this fork](https://github.com/btmills/prettier) of Prettier to enable powerful auto-formatting whenever we save a JS file.
+1. Install either [Prettier](https://prettier.io/) or [this fork of Prettier](https://github.com/btmills/prettier) to enable powerful auto-formatting whenever we save a JS file.
 1. Integrate ESLint and Prettier into VS Code so that all formatting work can be handled directly within the editor.
 
 If I've made any mistakes, as I'm sure I have, please feel free to [submit a pull request](https://www.freecodecamp.org/news/how-to-make-your-first-pull-request-on-github-3/) or [raise an issue](https://github.com/connorrose/Web-Dev-Workflow-Guide-For-Beginners/issues). If you follow everything listed here and it still won't work (and you're on Mac), just get in touch and I'll do my best to help you troubleshoot.
@@ -20,7 +18,7 @@ This guide focuses exclusively on using ESLint & Prettier within VS Code, rather
 
 - **Steps 0 to 2** will give you a working ESLint set-up within VS Code.
 - Continuing with **Step 3** will add additional auto-formatting via Prettier.
-- Finally, **Step 4** provides additional configuration options for tailoring ESLint to your particular needs and preferences.
+- Finally, **Step 4** provides more configuration options for tailoring ESLint to your particular needs and preferences.
 
 **PREREQUISITES**
 
@@ -72,6 +70,8 @@ This command will:
 The <code>--save-dev</code> flag registers the package we just installed as a <i>development dependency</i> within <code><b>package.json</b></code>. Dev-dependencies are packages required only during the development phase, rather than in production. That is, they are packages that help us <i>write</i> our code, but they do not contribute any functionality to the code we deploy to users.
 </details>
 
+<br />
+
 ### Installing AirBnB
 Without changing folders, install the AirBnB configuration for ESLint:
 
@@ -111,7 +111,7 @@ If you're not already in VS Code, open it up now. Open up the [Extensions pane](
  If you're not sure how to access Settings in VS Code, see [the official docs](https://code.visualstudio.com/docs/getstarted/settings) before continuing. (_Hint:_ `CTRL+SHFT+P` > "Open Settings")  
 With the ESLint extension installed, update the two settings shown below. You can either search for these by name in the Settings GUI, or directly paste them code into your VS Code **`settings.JSON`** file:  
 
-```json
+```jsonc
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
@@ -183,6 +183,8 @@ This is the "additional step." Since the forked package has a different name tha
 </ol>
 </details>
 
+<br />
+
 ### Updating ESLint configuration
 To add our new Prettier tools into our ESLint configuration, open the same **`.eslintrc.json`** file as before. You can copy/paste the below code exactly as-is, overwriting the current contents:
 
@@ -239,7 +241,7 @@ If you want to explore the settings on your own, the following links are good pl
 
 ### VS Code setting specificity
 When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file types, not just Javascript. This shouldn't cause any issues, as ESLint won't parse non-Javascript files. However, if you decide to set up other formatters for non-Javascript files, you'll want change your VS Code settings to target the ESLint extension more narrowly. You can do this with [language specific editor settings](https://code.visualstudio.com/docs/getstarted/settings#_language-specific-editor-settings):
-```json
+```jsonc
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
