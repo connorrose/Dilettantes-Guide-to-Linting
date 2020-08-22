@@ -26,7 +26,7 @@
   "editor.lineNumbers": "relative", // This one is Vim-related
   // Sets gutter line numbers to absolute line number for current line,
   // and relative for lines on either side.
-  // Easier to enter vim commands like "jump up 12 lines" => <12j>
+  // Easier to enter vim commands like "delete the next 12 lines" => <d12j>
   "editor.detectIndentation": false, // Lets tab key auto-insert spaces on EVERY file
   "editor.tabSize": 2, // Sets tab auto-insert to two spaces
   "editor.fontFamily": "FiraCode-Retina", // See below link for download instructions
@@ -36,7 +36,7 @@
   "editor.minimap.enabled": false, // No map on right sidebar
   "editor.cursorSurroundingLines": 4, // If scrolling at bottom of page, always show at least 4 lines below cursor
   "editor.cursorBlinking": "smooth", // Vim makes my cursor a block, so this smooths the blinking
-  "editor.snippetSuggestions": "inline", // added on Sey's advice
+  "editor.snippetSuggestions": "inline", // misc
   "editor.acceptSuggestionOnCommitCharacter": false, // reduce accidental accept-suggestion
 
   // EXPLORER
@@ -49,7 +49,7 @@
 
   // WORKBENCH
   "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme!
-  // https://monokai.pro/vscode (you can safely ignore the bit about purchasing a license)
+  // https://monokai.pro/vscode
   "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // use themed icons as well
   "workbench.settings.useSplitJSON": true, // always show defaults file when editing settings.JSON
   "workbench.editor.highlightModifiedTabs": true, // adds a little highlight to modified open tabs

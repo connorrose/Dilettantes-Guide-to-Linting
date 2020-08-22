@@ -1,6 +1,6 @@
 # ESLINT > AIRBNB > PRETTIER > VS CODE
 
-This guide is a step-by-step walkthrough for setting up a Javascript linting workflow. I work exclusively on MacOS (10.15 Catalina), so your mileage may vary on Linux and Windows. The focus is on vanilla, browser-based Javascript, but it includes some coverage for [React](https://reactjs.org/).
+This guide is a step-by-step walkthrough for setting up a Javascript linting workflow. I work exclusively on MacOS (10.15 Catalina), so your mileage may vary on Linux and Windows. The focus is on vanilla, browser-based Javascript, but it includes incidental coverage for [React](https://reactjs.org/) as well.
 
 **The goal:**
 1. Install [ESLint](https://eslint.org/) locally, which will check our code for style and structural errors.
@@ -24,7 +24,7 @@ This guide focuses exclusively on using ESLint & Prettier within VS Code, rather
 
 **PREREQUISITES**
 
-- **Basic command line skills:** You can mostly copy-paste the commands in this guide, but knowing how to `cd / ls / etc`, as well as understanding _flags_ (like `<command> --help`), will be a plus. See [this guide](./Command-Line.md) for more info.
+- **Basic command line skills:** You can mostly copy-paste the commands in this guide, but knowing how to `cd / ls / etc`, as well as understanding _flags_ (like `<command> --help`), will be a plus.
 - **VS Code basics:** I'm assuming that you're already using VS Code, and that you understand the basics of how to navigate around it. If you're not yet comfortable using VS Code, [@seyitaintkim's VS Code write-up](https://github.com/seyitaintkim/VS-Code) is a good primer; check that out before continuing here. 
 - **_npm_ installed & up-to-date:** If you're not sure if you have npm installed, type `npm --version` into your terminal and hit enter. If you see a number, it's already installed. If not, follow [this link](https://www.npmjs.com/get-npm) to install Node & npm. [A similar tool](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) called **_npx_** should be installed automatically with npm. To confirm, enter `npx -v` and look for the version number. If you'd like a little background on what exactly npm _is_, see the [notes](#a-few-words-on-npm) below.
 - **Terminology => _Linter_:** A _linter_ is a program that parses your source code to detect syntax errors or styling inconsistencies. Linters are useful for making sure multiple developers can work on a shared project in a consistent code style with as few errors as possible. ESLint is a powerful configurable linter. Prettier, by contrast, is a narrowly-focused _code formatter_ that auto-fixes many style issues. It works by taking an [AST representation](https://blog.buildo.io/a-tour-of-abstract-syntax-trees-906c0574a067) of your code and re-printing it according to predefined & opinionated style rules. (For a bit more info on Prettier's design principles & under-the-hood implementation, see [this blog post](https://jlongster.com/A-Prettier-Formatter)).
@@ -108,7 +108,7 @@ Open your new **`.eslintrc.json`** file in VS Code and copy in the following:
 If you're not already in VS Code, open it up now. Open up the [Extensions pane](https://code.visualstudio.com/docs/editor/extension-gallery) and search for [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) by Dirk Baeumer. Click the _Install_ button.
 
 ### Updating VS Code settings
- If you're not sure how to access Settings in VS Code, check [Sey's guide](https://github.com/seyitaintkim/VS-Code). (_Hint:_ `CTRL+SHFT+P` > "Open Settings")  
+ If you're not sure how to access Settings in VS Code, see [the official docs](https://code.visualstudio.com/docs/getstarted/settings) before continuing. (_Hint:_ `CTRL+SHFT+P` > "Open Settings")  
 With the ESLint extension installed, update the two settings shown below. You can either search for these by name in the Settings GUI, or directly paste them code into your VS Code **`settings.JSON`** file:  
 
 ```json

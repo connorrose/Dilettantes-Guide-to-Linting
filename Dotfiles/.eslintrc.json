@@ -3,7 +3,7 @@
       "browser": true,
       "node": true,
       "es2020": true,
-      "jquery": true
+      "jest": true
   },
   "extends": [
       "airbnb",
@@ -37,7 +37,7 @@
           }
       ],
       "react/function-component-definition": [
-          "off",
+          "error",
           {
               "namedComponents": "arrow-function",
               "unnamedComponents": "arrow-function"
@@ -51,7 +51,7 @@
           }
       ],
       "react/jsx-key": "error",
-      "react/jsx-no-useless-fragment": "off",
+      "react/jsx-no-useless-fragment": "error",
       "react/jsx-sort-props": [
           "error",
           {
