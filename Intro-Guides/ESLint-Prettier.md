@@ -10,7 +10,7 @@ If I've made any mistakes, as I'm sure I have, please feel free to [submit a pul
 
 ## GETTING STARTED
 
-**[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) was my original inspiration.** After spending time in VS Code with that setup, I've made some changes to stay closer to AirBnB's [style guide docs](https://github.com/airbnb/javascript) while adding additional context. If you just want a list of the install commands without any explanation, see the **[TLDR version](./TLDR-eslint.md)**.
+**[This article](https://blog.echobind.com/integrating-prettier-eslint-airbnb-style-guide-in-vscode-47f07b5d7d6a) was my original inspiration.** After spending time in VS Code with that setup, I've made some changes to stay closer to AirBnB's style guide docs while adding additional context. If you just want a list of the install commands without any explanation, see the **[TLDR version](./TLDR-eslint.md)**.
 
 _**Please note:**_ terminal commands will always be on their own line, pre-fixed with a $ sign. Don't include the **$** when typing the command in the terminal; it's used here only to indicate _"this is a terminal command you should enter"_.
 
@@ -34,7 +34,7 @@ For example, I've set up my _Software Immersive_ workspace along this path:
 
 `~/Desktop/Coding/Course-Name/Immersive`
 
-where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Prettier are installed in this **`Immersive`** folder. The **`Immersive`** folder, or _directory_, then contains multiple sub-folders, or _sub-directories_, each of which is an assignment or project I've cloned from GitHub. Since these assignment sub-folders are _inside_ the folder where I installed ESLint and Prettier, the linter will still have access to them. The cloned projects are each tracked as their own separate git repositories, while the **`Immersive`** folder itself is **_not_** tracked via [git](./Git-Github.md) / version control.
+where `~` is my home folder (literally `/Users/connorrosedelisle`). ESLint & Prettier are installed in this **`Immersive`** folder. The **`Immersive`** folder, or _directory_, then contains multiple sub-folders, or _sub-directories_, each of which is an assignment or project I've cloned from GitHub. Since these assignment sub-folders are _inside_ the folder where I installed ESLint and Prettier, the linter will still have access to them. The cloned projects are each tracked as their own separate git repositories, while the **`Immersive`** folder itself is **_not_** tracked via [git](https://lab.github.com/) / version control.
 
 You don't have to copy my exact directory path set-up; just make sure you pick an install folder that can contain all of the projects you want linted and fixed with the same AirBnB style rules. Remember that _every_ sub-folder will be following this configuration, so don't pick a folder that contains outside projects already following their own style guides. Once you've chosen a folder for installation, you should navigate to that folder within your terminal and move on to the next step.
 
@@ -46,7 +46,7 @@ Before we get started, let's create a **`package.json`** file to keep track of w
 **$** `npm init --yes`
 
 This will:
-1. Initialize our current folder as an _npm package_. To over-simplify, npm packages are just folders containing code files and a completed **`package.json`**. It isn't relevant to us, but with a few tweaks we could technically register our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/).
+1. Initialize our current folder as an _npm package_. To over-simplify, npm packages are just folders containing code files and a completed **`package.json`**. It isn't relevant to us, but with a few tweaks we could technically publish our current folder and all the code it contains with [npm](https://docs.npmjs.com/about-npm/).
 1. Create a **`package.json`** file in the current directory. This file keeps track of the packages we'll be installing.
 1. Set some default values within **`package.json`**, including a _name_, _version number_, and _license_. Since we're not publishing our folder on npm, we won't worry about any of these values. However, you can look through [the docs](https://docs.npmjs.com/files/package.json) for more information.
 <br>
@@ -55,15 +55,16 @@ This will:
 Next, to install the core ESLint package, enter:
 
 **$** `npm install eslint --save-dev`
+###### You can safely ignore any `npm WARN` messages about missing descriptions or fields.
 
-###### (You can safely ignore any `npm WARN` messages about missing descriptions or fields.)
+<br />
 
 This command will:
-1. Create a folder called **`node_modules`**, inside which all our packages will be installed.
-1. Install the ESLint package within **`node_modules`**.
-1. Register ESLint as a _dev-dependency_ in **`package.json`**.
-1. Install all the other packages ESLint depends on, as shown in npm's terminal output.
-1. Create a **`package-lock.json`** file in the current directory. This file automatically keeps track of the version info of packages we install, as well as the required version numbers for any of their _dependencies_.
+  1. Create a folder called **`node_modules`**, inside which all our packages will be installed.
+  1. Install the ESLint package within **`node_modules`**.
+  1. Register ESLint as a _dev-dependency_ in **`package.json`**.
+  1. Install all the other packages ESLint depends on, as shown in npm's terminal output.
+  1. Create a **`package-lock.json`** file in the current directory. This file automatically keeps track of the version info of packages we install, as well as the required version numbers for any of their _dependencies_.
 
 <details>
 <summary><i>Technical Aside</i></summary>
@@ -225,7 +226,7 @@ This sets our preferred line length to [100 characters](https://github.com/airbn
 
 _And that's it!_ **You're done.** You should now see ESLint highlighting all of your errors in VS Code, and Prettier auto-formatting your style when you save.
 
-_... but what about the Prettier extension?_ We don't need it. Because `eslint-plugin-prettier` already connects Prettier's formatter to ESLint, we can just rely on the ESLint plugin alone. Every time the ESLint formatter is called on save, it will automatically add Prettier's formatting on top. One less thing to worry about!
+_... but what about the Prettier extension?_ We don't need it. Because `eslint-plugin-prettier` already connects Prettier's formatter to ESLint, we can just rely on the ESLint extension alone. Every time the ESLint formatter is called on save, it will automatically add Prettier's formatting on top. One less thing to worry about!
 
 ## STEP 4: More Configuration (Optional)
 
