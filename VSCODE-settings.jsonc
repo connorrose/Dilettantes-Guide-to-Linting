@@ -15,22 +15,22 @@
     }
   },
 
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint", // Sets ESLint as my default formatter for all files
-    "editor.codeActionsOnSave": { // object sets which actions VS Code should take when saving a file
-      "source.fixAll.eslint": true // fixes all auto-fixable problems through ESLint (which calls Prettier)
+  "[javascriptreact]": { // Same as above, but for .jsx files
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
     }
   },
 
   // EDITOR
-  "editor.lineNumbers": "relative", // This one is Vim-related
-  // Sets gutter line numbers to absolute line number for current line,
-  // and relative for lines on either side.
-  // Easier to enter vim commands like "delete the next 12 lines" => <d12j>
+  "editor.lineNumbers": "relative", // This is Vim-related
+  /* Sets gutter line numbers to absolute line number for current line,
+   * and relative for lines on either side.
+   * Easier to enter vim commands like "delete the next 12 lines" => <d12j>
+   */
   "editor.detectIndentation": false, // Lets tab key auto-insert spaces on EVERY file
   "editor.tabSize": 2, // Sets tab auto-insert to two spaces
-  "editor.fontFamily": "FiraCode-Retina", // See below link for download instructions
-  // https://github.com/tonsky/FiraCode/wiki/Installing
+  "editor.fontFamily": "FiraCode-Retina", // https://github.com/tonsky/FiraCode/wiki/Installing
   "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss05', 'ss06', 'ss08'", // My preferred set of fontLigatures with Fira Code
   "editor.fontSize": 13, // My preferred default font size
   "editor.minimap.enabled": false, // No map on right sidebar
@@ -48,17 +48,10 @@
   "scm.diffDecorationsGutterWidth": 5, // make the highlights wider for visibility
 
   // WORKBENCH
-  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme!
-  // https://monokai.pro/vscode
+  "workbench.colorTheme": "Monokai Pro (Filter Spectrum)", // Color theme! => https://monokai.pro/vscode
   "workbench.iconTheme": "Monokai Pro (Filter Spectrum) Icons", // use themed icons as well
   "workbench.settings.useSplitJSON": true, // always show defaults file when editing settings.JSON
   "workbench.editor.highlightModifiedTabs": true, // adds a little highlight to modified open tabs
-  "workbench.colorCustomizations": { // I may be overwriting this with my Vim config - not totally sure
-    "statusBar.background": "#8FBCBB",
-    "statusBar.noFolderBackground": "#8FBCBB",
-    "statusBar.debuggingBackground": "#8FBCBB",
-    "statusBar.foreground": "#434C5E"
-  },
 
   // ----- EXTENSION CONFIGURATIONS -----
   // See individual extension pages in Marketplace for full config options
@@ -84,9 +77,11 @@
   "bracket-pair-colorizer-2.colors": [
     "steelblue",
     "cadetblue"
-  ] // Array sets alternating colors for nested brackets.
-  // You can include from 1 to many colors.
-  // Rainbow brackets are hard for me to read, so I just use two similar alternating colors.
-  // This lets me tell adjacent brackets apart visiualize scope changes while still confining "brackets"
-  // to one color family on a quick visual scan
+  ]
+  /* Array sets alternating colors for nested brackets.
+   * You can include from 1 to many colors.
+   * Rainbow brackets are hard for me to read, so I just use two similar alternating colors.
+   * This lets me tell adjacent brackets apart & visiualize scope changes while still confining
+   * all brackets to one color family on a quick visual scan
+   */
 }
