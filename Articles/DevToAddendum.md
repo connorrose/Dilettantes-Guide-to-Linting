@@ -1,4 +1,4 @@
-If you made it to the end of [the previous article](https://dev.to/connorrose/a-dilettante-s-guide-to-linting-3b02) with everything working, you're in great shape. You can safely call it a day and have a working set-up for many _.js_ files to come. If you want to tailor your environment a bit more, this addendum will walk you through common additional settings. You can enable some or all of these to personalize your environment and/or enforce stricter style adherence than the simple config detailed previously. If you're interested, you can view my complete ESLint config file [here](https://github.com/connorrose/Dilettantes-Guide-to-Linting/blob/master/Dotfiles/.eslintrc.json).
+If you made it to the end of [the previous article](https://dev.to/connorrose/a-dilettante-s-guide-to-linting-5685) with everything working, you're in great shape. You can safely call it a day and have a working set-up for many _.js_ files to come. If you want to tailor your environment a bit more, this addendum will walk you through common additional settings. You can enable some or all of these to personalize your environment and/or enforce stricter style adherence than the simple config detailed previously. If you're interested, you can view my complete ESLint config file [here](https://github.com/connorrose/Dilettantes-Guide-to-Linting/blob/master/.eslintrc.json).
 
 ### Reference Docs
 If you want to explore the settings on your own, the following links are good places to start. For the packages, don't be afraid to dig around in the source code! It's a great way to understand more about how things function and interconnect under-the-hood. 
@@ -20,7 +20,7 @@ When we updated our VS Code settings in Step 2, we enabled ESLint for _all_ file
 ```
 
 ### .prettierrc options
-As discussed, Prettier doesn't let us do a whole lot of configuration. We only needed to change two options to match AirBnB, but we can customize [a few more](https://prettier.io/docs/en/options.html) if we want. [My Prettier config file](https://github.com/connorrose/Dilettantes-Guide-to-Linting/blob/master/Dotfiles/.prettierrc.json) specifies all the options I'm opinionated about, even though I'm just re-stating the default behavior for most of them.
+As discussed, Prettier doesn't let us do a whole lot of configuration. We only needed to change two options to match AirBnB, but we can customize [a few more](https://prettier.io/docs/en/options.html) if we want. [My Prettier config file](https://github.com/connorrose/Dilettantes-Guide-to-Linting/blob/master/.prettierrc.json) specifies all the options I'm opinionated about, even though I'm just re-stating the default behavior for most of them.
 
 ### String Format Power-Ups
 One set of rules that breaks during Prettier / ESLint integration is string templating. We want to avoid template literals unless necessary, but always prefer template literals over string concatenation. To re-enable this behavior, we need to add an explicit rule in our **`.eslintrc.json`** file:
@@ -47,25 +47,27 @@ One set of rules that breaks during Prettier / ESLint integration is string temp
 - `node`: Covers the globals available to back-end code within Node's runtime environment.
 - `es2020`: This lets us use all the Javascript language features up through the most recent [ECMAScript spec](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Language_Resources), including features from earlier specs like ES6. If your code will be executed in a [runtime environment](https://medium.com/@olinations/the-javascript-runtime-environment-d58fa2e60dd0) that **doesn't** support these features yet (and you're not using a [transpiler](https://scotch.io/tutorials/javascript-transpilers-what-they-are-why-we-need-them)), you may want to specify `es6` instead.
 - `jquery`: If you use jQuery, this will save you from `$`-operator warnings.
-- `jest`: Eliminates errors for built-in Jest syntax like `describe()` and `test()` when writing tests with [Jest](https://jestjs.io/en/). 
+- `jest`: Eliminates errors for built-in [Jest](https://jestjs.io/en/) syntax like `describe()` and `test()`. 
 
 ### Additional ESLint Rules (or, why eslint-config-airbnb isn't enough)
 ESLint supports three levels of warning for most rules. You can set rules to a specific warning level to group your errors in whatever way works for you:
 
-0. `"off"`: the rule will not be flagged whatsoever in your code. 
-0. `"warn"`: you'll see a yellow or orange squiggly, and the rule will be counted in the ⚠ status bar symbol within VS Code.
-0. `"error"`: normal error, red squiggly, counted with ⓧ in VS Code status bar.
+- `0` or `"off"`: the rule will not be flagged whatsoever in your code. 
+- `1` or `"warn"`: you'll see a yellow or orange squiggly, and the rule will be counted in the ⚠ status bar symbol within VS Code.
+- `2` or `"error"`: normal error, red squiggly, counted with ⓧ in VS Code status bar.
 
 If you've gotten this far, you may have noticed some rules from the AirBnB style guide aren't showing as warnings or errors. If you [dig into the package source code](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules), you'll see that not every rule specified in the style guide has actually been enabled! We can re-enable any of these omissions by adding them to the `"rules"` object in **`.eslintrc.json`**:
 
 ```jsonc
-  // Not all missing rules are listed here
-
-  "default-case-last": "error",
-  "default-param-last": ["error"],
-  "no-useless-call": "error",
-  "prefer-exponentiation-operator": "error",
-  "prefer-regex-literals": "error",
+  "rules" {
+    // Not all missing rules are listed here
+    "default-case-last": "error",
+    "default-param-last": ["error"],
+    "no-useless-call": "error",
+    "prefer-exponentiation-operator": "error",
+    "prefer-regex-literals": "error",
+    //...
+  }
 
 ```
 
@@ -133,10 +135,10 @@ Prettier only fixes a narrow selection of style errors. It cannot fix most of th
 ### A few words on npm
 **_npm_** is a package manager. It lets you use bits of code that other people have written, known as _packages_ or _modules_, on your local machine (_ie_, your laptop / desktop / hotwired Motorola Razr / etc). These packages can either be installed _globally_, meaning they are accessible everywhere on your computer, or _locally_, meaning they are only available in a certain folder (or _directory_) and it's subfolders (or _sub-directories_). The folder that contains all of your project files & subfolders, including your npm modules, is sometimes called your project's _root_ directory. Additionally, npm uses a [package.json](https://docs.npmjs.com/files/package.json) file to store and manage information about your project and its associated packages. This is a file written in JSON that tracks lots of information about your project, including info on the various packages you've installed. We're not working directly with the `package.json` file in guide, but it's helpful to know what it is.
 
-Many npm packages also have _dependencies_. These are other packages that the main package requires in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. This can be the source of many set-up headaches! A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies.
+Many npm packages also have _dependencies_. These are other packages that the main package requires in order to run correctly. Often these dependencies will be installed automatically with whatever package you wanted, but sometimes they will need to be installed manually. A normal dependency is one that your project relies on at runtime, like jQuery for a live webpage. A _dev-dependency_ is one that is only required during the development process and is **not** necessary for your finished application to function. ESLint & Prettier are dev-dependencies. Less common, a _peer dependency_ is one required for another package to run, but which it expects you to already have installed. This is usually done to avoid installing multiple versions of the same package when using plugins.
 
 ### What the heck are dotfiles?!
-_Dotfiles_ are hidden files used to set the configuration for many different types of programs, such as Bash, Zsh, Vim, VS Code, ESLint, and Prettier. They're called dotfiles because the filenames start with a leading `.` that renders them hidden from normal file viewers, including the `ls` command. To view hidden files within the terminal, you can use:
+_Dotfiles_ are hidden files used to set the configuration for many different types of programs, including ESLint, Prettier, VS Code, Bash, and Zsh. They're called dotfiles because the filenames start with a leading `.` that renders them hidden from normal file viewers, including the `ls` command. To view hidden files within the terminal, you can use:
 ```bash
 $ ls -a -l
 ```
