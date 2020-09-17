@@ -1,4 +1,4 @@
-If you already know your way around installing npm packages & setting up config files, and you just want a list of terminal commands to copy, this is the guide for you. However, _**it is still your responsibility to ensure the safety and correctness of the code contained herein!**_ I make no such promises or guarantees, so if you `CTRL+V+ENTER` and _h@ck3rm@n420_ starts dancing across your screen, I will take absolutely **no** responsibilty for paying the [DogeCoin](https://dogecoin.com/) ransom.
+If you already know your way around installing npm packages & setting up config files, and you just want a list of terminal commands to copy, this is the guide for you. However, it is still your responsibility to ensure the safety and correctness of the code contained herein.
 
 1. `npm init -y`
 1. `npm i -D prettier` **OR** `npm i -D prettier@npm:@btmills/prettier`
